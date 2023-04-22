@@ -1,79 +1,83 @@
-function BMsearch(pat, txt) {
-    let badCharShift = []; 
-    let goodSuffixShift = []; 
-    let patLen = pat.length;
-    let txtLen = txt.length;
-    
-    for (let i = 0; i < 256; i++) 
-      badCharShift[i] = patLen; 
-    
-    for (let i = 0; i < patLen-1; i++) 
-      goodSuffixShift[i] = patLen; 
-    
-    for (let i = 0; i < patLen-1; i++) { 
-      let j = i; 
-      while (j >= 0 && pat[j] == pat[patLen-1-i+j]) 
-        j--; 
-      goodSuffixShift[patLen-1-i] = i - j; 
+function bmMatch(text, pattern) {
+    let last = buildLast(pattern);
+    let n = text.length;
+    let m = pattern.length;
+    let i = m - 1;
+  
+    if (i > n - 1) {
+        return -1; // no match if pattern is longer than text
     }
-    
-    let i = patLen - 1; 
-    while (i < txtLen) {
-      let j = patLen - 1; 
-      while (j >= 0 && pat[j] == txt[i]) { 
-        j--;
-        i--; 
-      }
-      if (j < 0)  
-        return i + 1; 
-        
-      let shift = max(goodSuffixShift[j], badCharShift[txt[i]] - patLen + 1); 
-      i += shift; 
-    }
-    return -1; 
+    let j = m - 1;
+  
+    do {
+        if (pattern.charAt(j) === text.charAt(i)) {
+            if (j === 0) {
+                return i; // match
+            } else { // looking glass technique
+                i--;
+                j--;
+            }
+        } else { // character jump technique
+            let lo = last[text.charCodeAt(i)];
+            i = i + m - Math.min(j, 1 + lo);
+            j = m - 1;
+        }
+    } while (i <= n - 1);
+  
+    return -1; // no match
   }
   
-  function KMPSearch(pat, txt) {
-    let lps = computeLPSArray(pat);
-    let i = 0; 
-    let j = 0; 
-    
-    while (i < txt.length) {
-      if (pat[j] == txt[i]) {
-        i++;
-        j++;
-      }
-      if (j == pat.length) {
-        return i - j;
-      } else if (i < txt.length && pat[j] != txt[i]) {
-        if (j != 0)
-          j = lps[j-1];  
-        else
-          i = i+1;
-      }
+function buildLast(pattern) {
+    let last = new Array(128).fill(-1);
+  
+    for (let i = 0; i < pattern.length; i++) {
+      last[pattern.charCodeAt(i)] = i;
     }
-    return -1;
+  
+    return last;
+}
+
+function kmpMatch(text, pattern) {
+    let n = text.length;
+    let m = pattern.length;
+    let b = computeBorder(pattern);
+    let i = 0;
+    let j = 0;
+  
+    while (i < n) {
+        if (pattern.charAt(j) === text.charAt(i)) {
+            if (j === m - 1) {
+                return i - m + 1; // match
+            }
+                i++;
+                j++;
+        } else if (j > 0) {
+            j = b[j - 1];
+        } else {
+            i++;
+        }
+    }
+    return -1; // no match
   }
   
-  function computeLPSArray(pat) {
-    let lps = [];
-    let len = 0; 
-    
-    lps[0] = 0; 
-    
+function computeBorder(pattern) {
+    let m = pattern.length;
+    let b = new Array(m);
+    b[0] = 0;
+    let j = 0;
     let i = 1;
-    while (i < pat.length) {
-      if (pat[i] == pat[len]) {
-        len++;
-        lps[i] = len;
-        i++;
-      } else {
-        if (len != 0) 
-          len = lps[len-1];  
-        else
-          lps[i] = 0;
-          i++;
-      }
+  
+    while (i < m) {
+        if (pattern.charAt(i) === pattern.charAt(j)) {
+            b[i] = j + 1;
+            i++;
+            j++;
+        } else if (j > 0) {
+            j = b[j - 1];
+        } else {
+            b[i] = 0;
+            i++;
+        }
     }
-    return lps;
+    return b;
   }
