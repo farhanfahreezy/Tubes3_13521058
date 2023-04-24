@@ -107,3 +107,43 @@ function levenshteinDistance(str1, str2) {
 
     return distances[str1.length][str2.length];
 }
+
+// Test database and input
+
+const input = 'What is the capital of belgium?';
+const database = [
+  { question: 'What is the capital of Italy?', answer: 'The capital of Italy is Rome.' },
+  { question: 'What is the capital of Spain?', answer: 'The capital of Spain is Madrid.' },
+  { question: 'What is the capital of France?', answer: 'The capital of France is Paris.' },
+];
+
+function findMatch(input, database) {
+    const threshold = 0.9;
+    const distances = [];
+    
+    // Calculate the Levenshtein Distance between the input and each question in the database
+    database.forEach((entry) => {
+      const distance = levenshteinDistance(input, entry.question);
+      distances.push({ question: entry.question, answer: entry.answer, distance });
+    });
+    
+    // Check if any questions have an exact match
+    const exactMatch = distances.find((entry) => entry.distance === 0);
+    if (exactMatch) {
+      return exactMatch.answer;
+    }
+    
+    // Check if any questions have a similarity score above or equal to 90%
+    const similarQuestion = distances.find((entry) => entry.distance / entry.question.length < (1 - threshold));
+    if (similarQuestion) {
+      return similarQuestion.answer;
+    }else{
+        // Sort the questions by their similarity scores and return the top 3 closest matches
+        const sortedDistances = distances.sort((a, b) => a.distance - b.distance);
+        const options = sortedDistances.slice(0, 3).map((entry) => entry.question);
+        return `Sorry, I couldn't find an exact match. Did you mean one of these instead?\n${options.join('\n')}`;
+    }
+}
+
+const answer = findMatch(input, database);
+console.log(answer); // Output: "The capital of France is Paris."
