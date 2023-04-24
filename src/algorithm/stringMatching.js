@@ -1,3 +1,4 @@
+// ---------------------- Boyer-Moore Algorithm ----------------------
 function bmMatch(text, pattern) {
     let last = buildLast(pattern);
     let n = text.length;
@@ -5,26 +6,26 @@ function bmMatch(text, pattern) {
     let i = m - 1;
   
     if (i > n - 1) {
-        return -1; // no match if pattern is longer than text
+        return -1;
     }
     let j = m - 1;
   
     do {
         if (pattern.charAt(j) === text.charAt(i)) {
             if (j === 0) {
-                return i; // match
-            } else { // looking glass technique
+                return i; 
+            } else { 
                 i--;
                 j--;
             }
-        } else { // character jump technique
+        } else { 
             let lo = last[text.charCodeAt(i)];
             i = i + m - Math.min(j, 1 + lo);
             j = m - 1;
         }
     } while (i <= n - 1);
   
-    return -1; // no match
+    return -1; 
   }
   
 function buildLast(pattern) {
@@ -37,6 +38,7 @@ function buildLast(pattern) {
     return last;
 }
 
+// ---------------------- KMP Algorithm ----------------------
 function kmpMatch(text, pattern) {
     let n = text.length;
     let m = pattern.length;
@@ -47,7 +49,7 @@ function kmpMatch(text, pattern) {
     while (i < n) {
         if (pattern.charAt(j) === text.charAt(i)) {
             if (j === m - 1) {
-                return i - m + 1; // match
+                return i - m + 1; 
             }
                 i++;
                 j++;
@@ -57,7 +59,7 @@ function kmpMatch(text, pattern) {
             i++;
         }
     }
-    return -1; // no match
+    return -1; 
 }
   
 function computeBorder(pattern) {
@@ -82,6 +84,7 @@ function computeBorder(pattern) {
     return b;
 }
 
+// ---------------------- Levenshtein Distance ----------------------
 function levenshteinDistance(str1, str2) {
     const distances = [];
     for (let i = 0; i <= str1.length; i++) {
@@ -110,7 +113,7 @@ function levenshteinDistance(str1, str2) {
 
 // Test database and input
 
-const input = 'What is the capital of belgium?';
+const input = 'What is the capital of spain?';
 const database = [
   { question: 'What is the capital of Italy?', answer: 'The capital of Italy is Rome.' },
   { question: 'What is the capital of Spain?', answer: 'The capital of Spain is Madrid.' },
@@ -121,10 +124,13 @@ function findMatch(input, database) {
     const threshold = 0.9;
     const distances = [];
     
+    const inputLowerCase = input.toLowerCase();
+
     // Calculate the Levenshtein Distance between the input and each question in the database
     database.forEach((entry) => {
-      const distance = levenshteinDistance(input, entry.question);
-      distances.push({ question: entry.question, answer: entry.answer, distance });
+        const questionLowerCase = entry.question.toLowerCase();
+        const distance = levenshteinDistance(inputLowerCase, questionLowerCase);
+        distances.push({ question: entry.question, answer: entry.answer, distance });
     });
     
     // Check if any questions have an exact match
@@ -146,4 +152,4 @@ function findMatch(input, database) {
 }
 
 const answer = findMatch(input, database);
-console.log(answer); // Output: "The capital of France is Paris."
+console.log(answer); 

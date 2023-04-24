@@ -6,10 +6,11 @@ const rl = readline.createInterface({
 });
 
 rl.question('Enter a date (DD/MM/YYYY): ', (dateStr) => {
-    // Accept any combination of /, -, or spaces as separators
+    // Array of month names
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'];
 
+    // Accept any combination of /, -, or spaces as separators
     const dateArr = dateStr.split(/[\/\s-]+/);
     if (dateArr.length !== 3) {
         console.log(`Invalid input: ${dateStr}. Please enter a valid date in the DD/MM/YYYY format.`);
@@ -17,6 +18,7 @@ rl.question('Enter a date (DD/MM/YYYY): ', (dateStr) => {
         return;
     }
 
+    // Check if the day, month, and year is valid
     const day = parseInt(dateArr[0]);
     if (isNaN(day) || day < 1) {
         console.log(`Invalid day: ${dateArr[0]}. Please enter a valid day.`);
@@ -65,7 +67,7 @@ rl.question('Enter a date (DD/MM/YYYY): ', (dateStr) => {
         rl.close();
         return;
     }
-
+    // Determine the day of a given date
     const date = new Date(year, month - 1, day);
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const dayOfWeek = daysOfWeek[date.getDay()];
