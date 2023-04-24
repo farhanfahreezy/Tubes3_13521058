@@ -10,8 +10,8 @@ function calculate(query) {
 
     for (let i = 0; i < components.length; i++) {
         let component = components[i];
-          	if (!isNaN(component)) {
-            	stack.push(Number(component));
+		if (!isNaN(component)) {
+			stack.push(Number(component));
         } else if (component === '(') {
 			operators.push('(');
 			balance++; // Increment the balance for each opening bracket

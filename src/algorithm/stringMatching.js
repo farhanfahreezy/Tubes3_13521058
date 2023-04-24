@@ -58,7 +58,7 @@ function kmpMatch(text, pattern) {
         }
     }
     return -1; // no match
-  }
+}
   
 function computeBorder(pattern) {
     let m = pattern.length;
@@ -80,4 +80,30 @@ function computeBorder(pattern) {
         }
     }
     return b;
-  }
+}
+
+function levenshteinDistance(str1, str2) {
+    const distances = [];
+    for (let i = 0; i <= str1.length; i++) {
+        distances[i] = [i];
+    }
+    for (let j = 0; j <= str2.length; j++) {
+        distances[0][j] = j;
+    }
+
+    for (let j = 1; j <= str2.length; j++) {
+        for (let i = 1; i <= str1.length; i++) {
+            if (str1[i-1] === str2[j-1]) {
+                distances[i][j] = distances[i-1][j-1];
+            } else {
+                distances[i][j] = Math.min(
+                distances[i-1][j] + 1,    // deletion
+                distances[i][j-1] + 1,    // insertion
+                distances[i-1][j-1] + 1   // substitution
+                );
+            }
+        }
+    }
+
+    return distances[str1.length][str2.length];
+}

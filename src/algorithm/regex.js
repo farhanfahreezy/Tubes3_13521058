@@ -4,7 +4,7 @@
 // // A regex to match names 
 // const nameRegex = /[A-Z][a-z]+/;
 
-// // A regex to match phone numbers
+// A regex to match phone numbers
 // const phoneRegex = /d{3}-d{3}-d{4}/;
 
 // // A regex to match emails
