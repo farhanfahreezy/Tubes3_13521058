@@ -168,7 +168,7 @@ function getAnswer(question) {
     Functions for history
 */
 
-// Function to add a hsitory to the database
+// Function to add a history to the database with number parameter
 function addHistory(number, who, dialog) {
     const sql = `INSERT INTO history (number, who, dialog) VALUES (?, ?, ?)`;
     connection.query(sql, [number, who, dialog], (error, results) => {
@@ -180,8 +180,40 @@ function addHistory(number, who, dialog) {
     });
 }
 
+// Function to add array of history (string) to the database with number parameter
+function addHistoryArray(number, who, dialogArray) {
+    for (const dialog of dialogArray) {
+        addHistory(number, who, dialog);
+    }
+}
+
+// Function to add a history to the database at the end of the history
+function addHistoryEnd(who, dialog) {
+    // Get the last number
+    const sqlSelect = `SELECT * FROM history ORDER BY number DESC LIMIT 1`;
+    connection.query(sqlSelect, (error, results) => {
+        if (error) {
+            console.error(error);
+        } else {
+            let number = 0;
+            if (results.length > 0) {
+                number = results[0].number;
+            }
+            addHistory(number + 1, who, dialog);
+        }
+    });
+}
+
+// Function to add array of history (string) to the database at the end of the history
+function addHistoryArrayEnd(who, dialogArray) {
+    for (const dialog of dialogArray) {
+        addHistoryEnd(who, dialog);
+    }
+}
+
 // Function to delete all history number from the database
 function deleteHistory(number) {
+    // Delete history
     const sql = `DELETE FROM history WHERE number = ?`;
     connection.query(sql, [number], (error, results) => {
         if (error) {
@@ -190,6 +222,16 @@ function deleteHistory(number) {
             console.log(`History not found: number=${number}`);
         } else {
             console.log(`History deleted: number=${number}`);
+        }
+    });
+
+    // Decrement number where number > this.number
+    const sqlDecrement = `UPDATE history SET number = number - 1 WHERE number > ?`;
+    connection.query(sqlDecrement, [number], (error, results) => {
+        if (error) {
+            console.error(error);
+        } else {
+            console.log(`History number adjudsted`);
         }
     });
 }
