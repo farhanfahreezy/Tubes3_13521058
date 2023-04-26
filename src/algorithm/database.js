@@ -187,8 +187,9 @@ function addHistoryArray(number, who, dialogArray) {
     }
 }
 
-// Function to add a history to the database at the end of the history
-function addHistoryEnd(who, dialog) {
+// Function to get the last number of history
+// 0 until 9
+function getLastHistoryNumber() {
     // Get the last number
     const sqlSelect = `SELECT * FROM history ORDER BY number DESC LIMIT 1`;
     connection.query(sqlSelect, (error, results) => {
@@ -199,16 +200,9 @@ function addHistoryEnd(who, dialog) {
             if (results.length > 0) {
                 number = results[0].number;
             }
-            addHistory(number + 1, who, dialog);
+            return number;
         }
     });
-}
-
-// Function to add array of history (string) to the database at the end of the history
-function addHistoryArrayEnd(who, dialogArray) {
-    for (const dialog of dialogArray) {
-        addHistoryEnd(who, dialog);
-    }
 }
 
 // Function to delete all history number from the database
