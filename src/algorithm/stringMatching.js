@@ -1,3 +1,7 @@
+import createPromptSync from 'prompt-sync';
+
+const prompt = createPromptSync({ autocomplete: false });
+
 // ---------------------- Boyer-Moore Algorithm ----------------------
 function bmMatch(text, pattern) {
     let last = buildLast(pattern);
@@ -113,18 +117,33 @@ function levenshteinDistance(str1, str2) {
 
 // Test database and input
 
-const input = 'What is the capital of spain?';
+const input = 'What is the capital of France?';
 const database = [
   { question: 'What is the capital of Italy?', answer: 'The capital of Italy is Rome.' },
   { question: 'What is the capital of Spain?', answer: 'The capital of Spain is Madrid.' },
   { question: 'What is the capital of France?', answer: 'The capital of France is Paris.' },
 ];
 
-function findMatch(input, database) {
+function findMatchingString(input, database, selected) {
     const threshold = 0.9;
     const distances = [];
     
     const inputLowerCase = input.toLowerCase();
+
+    // Find matching string based on user selection
+    if (selected === 0) {
+        // Check for exact match using Boyer-Moore Algorithm
+        const exactMatch = database.find((entry) => bmMatch(inputLowerCase, entry.question.toLowerCase()) !== -1);
+        if (exactMatch) {
+            return exactMatch.answer;
+        }
+    }else{
+        // Check for exact match using KMP Algorithm
+        const exactMatch = database.find((entry) => kmpMatch(inputLowerCase, entry.question.toLowerCase()) !== -1);
+        if (exactMatch) {
+            return exactMatch.answer;
+        }
+    }
 
     // Calculate the Levenshtein Distance between the input and each question in the database
     database.forEach((entry) => {
@@ -133,23 +152,30 @@ function findMatch(input, database) {
         distances.push({ question: entry.question, answer: entry.answer, distance });
     });
     
-    // Check if any questions have an exact match
-    const exactMatch = distances.find((entry) => entry.distance === 0);
-    if (exactMatch) {
-      return exactMatch.answer;
-    }
-    
     // Check if any questions have a similarity score above or equal to 90%
     const similarQuestion = distances.find((entry) => entry.distance / entry.question.length < (1 - threshold));
     if (similarQuestion) {
-      return similarQuestion.answer;
+        return similarQuestion.answer;
     }else{
         // Sort the questions by their similarity scores and return the top 3 closest matches
         const sortedDistances = distances.sort((a, b) => a.distance - b.distance);
-        const options = sortedDistances.slice(0, 3).map((entry) => entry.question);
-        return `Sorry, I couldn't find an exact match. Did you mean one of these instead?\n${options.join('\n')}`;
+        const options = sortedDistances.slice(0, 3).map((entry, index) => `${index+1}. ${entry.question}`);
+        const message = `Sorry, I couldn't find an exact match. Did you mean one of these instead?\n${options.join('\n')}`;
+
+        // display nearest questions
+        console.log(message);
+
+        const response = prompt('Choose between the options above : ');
+        const choice = parseInt(response);
+
+        // return the answer of the selected question
+        if (choice >= 1 && choice <= 3) {
+            return sortedDistances[choice-1].answer;
+        } else {
+            return 'Invalid choice';
+        }
     }
 }
 
-const answer = findMatch(input, database);
+const answer = findMatchingString(input, database, 1);
 console.log(answer); 
