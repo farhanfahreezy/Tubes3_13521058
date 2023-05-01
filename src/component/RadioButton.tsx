@@ -1,34 +1,15 @@
-import React from "react";
+import { FormControl, VStack, Radio, RadioGroup } from "@chakra-ui/react";
 
 const RadioButton = () => {
   return (
-    <ul className="list-group">
-      <li className="list-group-item">
-        <input
-          className="form-check-input me-1"
-          type="radio"
-          name="listGroupRadio"
-          value=""
-          id="firstRadio"
-          checked
-        />
-        <label className="form-check-label" htmlFor="firstRadio">
-          KMP
-        </label>
-      </li>
-      <li className="list-group-item">
-        <input
-          className="form-check-input me-1"
-          type="radio"
-          name="listGroupRadio"
-          value=""
-          id="secondRadio"
-        />
-        <label className="form-check-label" htmlFor="secondRadio">
-          BM
-        </label>
-      </li>
-    </ul>
+    <FormControl as="fieldset">
+      <RadioGroup defaultValue="KMP">
+        <VStack spacing="24px">
+          <Radio value="KMP">KMP</Radio>
+          <Radio value="BM">BM</Radio>
+        </VStack>
+      </RadioGroup>
+    </FormControl>
   );
 };
 
