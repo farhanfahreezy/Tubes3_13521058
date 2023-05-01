@@ -2,25 +2,52 @@
 > GPT dupe%
 
 ![React JS](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 
-Have you ever wondered how your GPS can find the fastest route to your destination? Well, computer scientists use algorithms to solve similar problems. In this web app project, we'll be using React Js framework and two popular algorithms, Uniform Cost Search (UCS) and A* search, to find the shortest path between connected nodes.
+The emergence of AI has revolutionized the way people interact with technology. Some renown AI chatbots like chatGPT has taken the world by storm and takes its place as the trend in everyone's mind. So what is an AI chatbot? and how does it help people of varying professions with their lives? 
 
-Our goal with this app is to help users find the quickest way to get to their destination by analyzing the connections between nodes and calculating the shortest path. UCS works by exploring the connected nodes with the lowest cost, while A* search combines UCS with a heuristic to explore the nodes likely to lead to the shortest path. It's going to be an exciting project, and we can't wait to see our web app in action!
+AI chatbots are computer programs that use artificial intelligence and natural language processing to simulate human conversation. These chatbots have been developed to assist humans in their everyday work, including customer service, healthcare, education, finance, and more. By using AI chatbots, businesses and organizations can provide round-the-clock assistance, reduce response times, and improve customer satisfaction. Additionally, AI chatbots can help to automate routine tasks and free up human workers to focus on more complex tasks. 
+
+We are inspired by the most popular AI chatbot , chatGPT, to create a simple chatbot anyone can try and converse with to consult about their daily problems 
 ![](image/Home.png)
 
 ## Requirement
 
-To use this project, you need to install the following dependencies:
+- `bootstrap`: A popular CSS framework for building responsive, mobile-first websites. To install, run the following command:
 
-@tailwindcss/forms@0.5.3: 
 ```
-npm install @tailwindcss/forms@0.5.3
+npm install bootstrap@5.2.3
 ```
-@vitejs/plugin-react@3.1.0: 
+
+- `mathjs`: A JavaScript library for performing mathematical operations. To install, run the following command:
+
 ```
-npm install @vitejs/plugin-react@3.1.0
+npm install mathjs@11.8.0
+```
+
+- `mysql`: A Node.js driver for connecting to MySQL databases. To install, run the following command:
+
+```
+npm install mysql@2.18.1
+```
+
+- `prompt-sync`: A Node.js module for synchronous user input. To install, run the following command:
+
+```
+npm install prompt-sync@4.2.0
+```
+
+- `react`: A popular JavaScript library for building user interfaces. To install version 18.2.0, run the following command:
+
+```
+npm install react@18.2.0
+```
+
+- `react-dom`: A package that provides DOM-specific methods for React components. To install version 18.2.0, run the following command:
+
+```
+npm install react-dom@18.2.0
 ```
 
 ## Run Program

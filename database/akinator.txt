@@ -1,0 +1,2 @@
+CREATE USER 'akinator'@'localhost' IDENTIFIED BY 'akinator123';
+GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO 'akinator'@'localhost' WITH GRANT OPTION;
