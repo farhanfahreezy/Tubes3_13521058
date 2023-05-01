@@ -13,7 +13,7 @@ const RadioButton = () => {
           checked
         />
         <label className="form-check-label" htmlFor="firstRadio">
-          Knuth-Morris-Pratt Algorithm
+          KMP
         </label>
       </li>
       <li className="list-group-item">
@@ -25,7 +25,7 @@ const RadioButton = () => {
           id="secondRadio"
         />
         <label className="form-check-label" htmlFor="secondRadio">
-          Boyer-Moore Algorithm
+          BM
         </label>
       </li>
     </ul>
