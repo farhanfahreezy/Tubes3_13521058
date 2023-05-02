@@ -27,7 +27,7 @@ CREATE TABLE `history` (
   `number` smallint unsigned NOT NULL,
   `who` smallint unsigned NOT NULL,
   `dialog` varchar(1000) NOT NULL,
-  `timestamp` timestamp NULL DEFAULT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`),
   CONSTRAINT `history_chk_1` CHECK ((`number` < 10)),
   CONSTRAINT `history_chk_2` CHECK (((`who` = 0) or (`who` = 1)))
@@ -76,4 +76,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-24 19:38:44
+-- Dump completed on 2023-05-02 15:34:20

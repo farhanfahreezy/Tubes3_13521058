@@ -1,2 +1,3 @@
-CREATE USER 'akinator'@'localhost' IDENTIFIED BY 'akinator123';
-GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO 'akinator'@'localhost' WITH GRANT OPTION;
+CREATE USER 'akinator'@'localhost' IDENTIFIED WITH mysql_native_password BY 'akinator123';
+GRANT ALL PRIVILEGES ON * . * TO 'akinator'@'localhost';
+FLUSH PRIVILEGES;
