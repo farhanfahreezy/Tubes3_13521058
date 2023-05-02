@@ -11,7 +11,7 @@ const ModeSwitch = () => {
 
   return (
     <HStack>
-      <Text mt="15px" color="#FFFFFF">
+      <Text mt="1px" color="#FFFFFF">
         {colorMode === "dark" ? "Dark Mode" : "Light Mode"}
       </Text>
       <Switch

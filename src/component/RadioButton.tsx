@@ -1,9 +1,15 @@
 import { FormControl, VStack, Radio, RadioGroup } from "@chakra-ui/react";
+import { useState, ChangeEvent } from "react";
 
 const RadioButton = () => {
+  const [selectedValue, setSelectedValue] = useState("KMP");
+  const handleChange = (val: string) => {
+    setSelectedValue(val);
+  };
+
   return (
     <FormControl as="fieldset">
-      <RadioGroup defaultValue="KMP">
+      <RadioGroup value={selectedValue} onChange={handleChange}>
         <VStack
           spacing="2"
           align="flex-start"
