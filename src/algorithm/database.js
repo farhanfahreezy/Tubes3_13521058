@@ -1,6 +1,7 @@
 import mysql from 'mysql';
 import { levenshteinDistance } from './stringMatching.js';
 export {
+    connect,
     disconnect,
     addRecord,
     deleteRecord,
@@ -21,6 +22,17 @@ const connection = mysql.createConnection({
   password: 'akinator123',
   database: 'akinator'
 });
+
+// Function to connect to the database
+function connect() {
+    connection.connect((err) => {
+        if (err) {
+            console.error(err);
+        } else {
+            console.log('Connected to the database.');
+        }
+    });
+}
 
 // Function to disconnect from the database
 function disconnect() {

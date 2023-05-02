@@ -121,6 +121,8 @@ function levenshteinDistance(str1, str2) {
 // Test database and input
 import * as database from './database.js'
 
+database.connect();
+
 const input = 'What is the capital of France?';
 
 database.addRecord('What is the capital of France?', 'Paris')
