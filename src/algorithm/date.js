@@ -11,7 +11,7 @@ rl.question('Enter a date (DD/MM/YYYY): ', (dateStr) => {
     'July', 'August', 'September', 'October', 'November', 'December'];
 
     // Accept any combination of /, -, or spaces as separators
-    const dateArr = dateStr.split(/[\/\s-]+/);
+    const dateArr = dateStr.split(/[\/\s-]+|^[a-zA-Z]{3}/);
     if (dateArr.length !== 3) {
         console.log(`Invalid input: ${dateStr}. Please enter a valid date in the DD/MM/YYYY format.`);
         rl.close();
@@ -52,9 +52,9 @@ rl.question('Enter a date (DD/MM/YYYY): ', (dateStr) => {
     let maxDay = 31;
     if (month === 2) {
         if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
-        maxDay = 29;
+            maxDay = 29;
         } else {
-        maxDay = 28;
+            maxDay = 28;
         }
     } else if (month % 2 === 0 && month < 8 || month % 2 === 1 && month > 7) {
         maxDay = 30;
@@ -72,6 +72,7 @@ rl.question('Enter a date (DD/MM/YYYY): ', (dateStr) => {
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const dayOfWeek = daysOfWeek[date.getDay()];
 
+    // TODO : Show result to frontend
     console.log(`The day of the week for ${dateStr} is ${dayOfWeek}.`);
 
     rl.close();

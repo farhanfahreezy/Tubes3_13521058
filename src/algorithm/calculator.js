@@ -2,6 +2,7 @@ import createPromptSync from 'prompt-sync';
 
 const prompt = createPromptSync({ autocomplete: false });
 
+
 function calculate(query) {
     let components = query.replace(/\s/g, '').replace(/([\+\-\*\/\(\)])/g, ' $1 ').trim().split(/\s+/);
     let stack = [];
@@ -67,10 +68,14 @@ function precedence(op) {
 	}
 }
 
+
 try {
+	// TODO : replace query with user input
 	let query = prompt('Enter an expression: ');
 	let result = calculate(query);
+	// TODO : Show to frontend
 	console.log(`The result is: ${result.toString()}`);
 } catch (error) {
+	// TODO : Show to frontend
     console.error(error.message);
 }

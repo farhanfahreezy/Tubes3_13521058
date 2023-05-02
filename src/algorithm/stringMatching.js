@@ -116,8 +116,9 @@ function levenshteinDistance(str1, str2) {
 }
 
 // Test database and input
+// TODO : replace with actual database and input
 
-const input = 'What is the capital of France?';
+const input = 'What is the capital of ?';
 const database = [
   { question: 'What is the capital of Italy?', answer: 'The capital of Italy is Rome.' },
   { question: 'What is the capital of Spain?', answer: 'The capital of Spain is Madrid.' },
@@ -130,6 +131,7 @@ function findMatchingString(input, database, selected) {
     
     const inputLowerCase = input.toLowerCase();
 
+    // TODO : Connect web app toggle to one of the following algorithms
     // Find matching string based on user selection
     if (selected === 0) {
         // Check for exact match using Boyer-Moore Algorithm
@@ -176,6 +178,6 @@ function findMatchingString(input, database, selected) {
         }
     }
 }
-
+// TODO : Show to frontend
 const answer = findMatchingString(input, database, 1);
 console.log(answer); 
