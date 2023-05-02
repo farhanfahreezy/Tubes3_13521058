@@ -1,8 +1,21 @@
 import mysql from 'mysql';
-import levenshteinDistance from './stringMatching.js';
+import { levenshteinDistance } from './stringMatching.js';
+export {
+    addRecord,
+    deleteRecord,
+    updateRecord,
+    addQuestion,
+    deleteQuestion,
+    getAnswer,
+    getAllQuestionsAndAnswers,
+    addHistory,
+    getLastHistoryNumber,
+    deleteHistory,
+    getDialogs
+};
 
 const connection = mysql.createConnection({
-  host: 'https//localhost:3306',
+  host: 'localhost',
   user: 'akinator',
   password: 'akinator123',
   database: 'akinator'
@@ -19,7 +32,7 @@ function addRecord(question, answer) {
         if (error) {
             console.error(error);
         } else {
-            console.log(`Record added: question=${question}, answer=${answer}`);
+            console.log(`Record berhasil ditambahkan: pertanyaan=${question}, jawaban=${answer}`);
         }
     });
 }
@@ -31,9 +44,9 @@ function deleteRecord(ID) {
         if (error) {
             console.error(error);
         } else if (results.affectedRows === 0) {
-            console.log(`Record not found: ID=${ID}`);
+            console.log(`Record tidak ditemukan: ID=${ID}`);
         } else {
-            console.log(`Record deleted: ID=${ID}`);
+            console.log(`Record berhasil dihapus: ID=${ID}`);
         }
     });
 }
@@ -45,9 +58,9 @@ function updateRecord(ID, question, answer) {
         if (error) {
             console.error(error);
         } else if (results.affectedRows === 0) {
-            console.log(`Record not found: ID=${ID}`);
+            console.log(`Record tidak ditemukan: ID=${ID}`);
         } else {
-            console.log(`Record updated: ID=${ID}, question=${question}, answer=${answer}`);
+            console.log(`Record berhasil diperbarui: ID=${ID}, pertanyaan=${question}, jawaban=${answer}`);
         }
     });
 }
@@ -132,8 +145,18 @@ function deleteQuestion(input) {
     });
 }
 
-// Getter for answer
-function getAnswer(question) {
+/*
+    Getter for answer
+    HOW TO USE:
+    getAnswer('question text', (answer) => {
+    if (answer) {
+        console.log(`The answer is ${answer}`);
+    } else {
+        console.log('Answer not found');
+    }
+    });
+*/
+function getAnswer(question, callback) {
     // Check if the question exists in the database
     const sqlSelect = `SELECT * FROM question_answer`;
     connection.query(sqlSelect, (error, results) => {
@@ -153,14 +176,48 @@ function getAnswer(question) {
                 }
             }
             if (found) {
-                console.log(`pertanyaan ${question} ditemukan dan jawaban telah diambil`)
+                console.log(`pertanyaan ${question} ditemukan dan jawaban telah diambil`);
+                callback(answer);
             } else {
-                console.log(`pertanyaan ${question} tidak ditemukan`)
+                console.log(`pertanyaan ${question} tidak ditemukan`);
+                callback(null);
             }
         }
     });
-    
-    return answer;
+}
+
+/* 
+    Getter for all questions and answers
+    Return format :
+    const database = [
+        { question: 'question1', answer: 'answer1' },
+        { question: 'question2', answer: 'answer2' },
+        { question: 'question3', answer: 'answer3' },
+    ];
+
+    HOW TO USE:
+    getAllQuestionsAndAnswers()
+    .then(database => {
+        console.log(database);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+*/
+function getAllQuestionsAndAnswers() {
+    const sqlSelect = `SELECT * FROM question_answer`;
+    return new Promise((resolve, reject) => {
+        connection.query(sqlSelect, (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                const database = results.map(row => {
+                    return { question: row.question, answer: row.answer };
+                });
+                resolve(database);
+            }
+        });
+    });
 }
 
 
@@ -180,16 +237,19 @@ function addHistory(number, who, dialog) {
     });
 }
 
-// Function to add array of history (string) to the database with number parameter
-function addHistoryArray(number, who, dialogArray) {
-    for (const dialog of dialogArray) {
-        addHistory(number, who, dialog);
-    }
-}
-
-// Function to get the last number of history
-// 0 until 9
-function getLastHistoryNumber() {
+/*
+    Function to get the last number of history
+    0 until 9
+    HOW TO USE:
+    database.getLastHistoryNumber((Number) => {
+        if (Number) {
+            console.log(`The last history number is ${Number}`);
+        } else {
+            console.log('No history found');
+        }
+    });
+*/
+function getLastHistoryNumber(callback) {
     // Get the last number
     const sqlSelect = `SELECT * FROM history ORDER BY number DESC LIMIT 1`;
     connection.query(sqlSelect, (error, results) => {
@@ -200,12 +260,12 @@ function getLastHistoryNumber() {
             if (results.length > 0) {
                 number = results[0].number;
             }
-            return number;
+            callback(number);
         }
     });
 }
 
-// Function to delete all history number from the database
+// Function to delete all history number from the database and adjust the number
 function deleteHistory(number) {
     // Delete history
     const sql = `DELETE FROM history WHERE number = ?`;
@@ -229,10 +289,21 @@ function deleteHistory(number) {
         }
     });
 }
-
-// Getter for all dialog from a number, sort by lowest timestamp
-// Return an array of dialog (string)
-function getDialogs(number) {
+/*
+    Getter for all dialog from a number, sort by lowest timestamp
+    Return an array of dialog (string)
+    HOW TO USE:
+    getDialogs(number, (dialogs) => {
+        if (dialogs) {
+            for (const dialog of dialogs) {
+                console.log(dialog);
+            }
+        } else {
+            console.log('No dialogs found');
+        }
+    });
+*/
+function getDialogs(number, callback) {
     const sqlSelect = `SELECT * FROM history WHERE number = ? ORDER BY timestamp ASC`;
     connection.query(sqlSelect, [number], (error, results) => {
         if (error) {
@@ -246,11 +317,11 @@ function getDialogs(number) {
             }
             if (found) {
                 console.log(`History number ${number} ditemukan dan dialog telah diambil`)
+                callback(dialogs);
             } else {
                 console.log(`History number ${number} tidak ditemukan`)
+                callback(null);
             }
         }
     });
-    
-    return dialogs;
 }

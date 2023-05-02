@@ -1,4 +1,7 @@
 import createPromptSync from 'prompt-sync';
+export { 
+    levenshteinDistance 
+};
 
 const prompt = createPromptSync({ autocomplete: false });
 
@@ -116,14 +119,13 @@ function levenshteinDistance(str1, str2) {
 }
 
 // Test database and input
-// TODO : replace with actual database and input
+import * as database from './database.js'
 
-const input = 'What is the capital of ?';
-const database = [
-  { question: 'What is the capital of Italy?', answer: 'The capital of Italy is Rome.' },
-  { question: 'What is the capital of Spain?', answer: 'The capital of Spain is Madrid.' },
-  { question: 'What is the capital of France?', answer: 'The capital of France is Paris.' },
-];
+const input = 'What is the capital of France?';
+
+database.addRecord('What is the capital of France?', 'Paris')
+database.addRecord('What is the capital of Spain?', 'Madrid')
+database.addRecord('What is the capital of Germany?', 'Berlin')
 
 function findMatchingString(input, database, selected) {
     const threshold = 0.9;
@@ -178,6 +180,12 @@ function findMatchingString(input, database, selected) {
         }
     }
 }
+
 // TODO : Show to frontend
-const answer = findMatchingString(input, database, 1);
-console.log(answer); 
+database.getAllQuestionsAndAnswers()
+    .then(database => {
+        console.log(findMatchingString(input, database, 1));
+    })
+    .catch(error => {
+        console.error(error);
+    });
