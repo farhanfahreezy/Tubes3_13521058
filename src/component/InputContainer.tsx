@@ -1,20 +1,23 @@
 import {
   FormControl,
-  FormLabel,
   Input,
   FormHelperText,
-  HStack,
-  IconButton,
   Button,
   InputGroup,
   InputRightElement,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { useState, ChangeEvent, KeyboardEvent } from "react";
-import { BsFillSendFill } from "react-icons/bs";
+import { RiSendPlaneFill } from "react-icons/ri";
 
 const InputContainer = () => {
   const [inputValue, setInputValue] = useState("");
   const [outputValue, setOutputValue] = useState("");
+  const sendColor = useColorModeValue("black", "white");
+  // const messagebBelow = useColorModeValue(
+  //   "AAHHH! MY EYEESS",
+  //   "Did you know that a group of flamingos is called a flamboyance?"
+  // );
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -47,7 +50,7 @@ const InputContainer = () => {
           />
           <InputRightElement mr={2} mt={1}>
             <Button colorScheme="none" size="sm" onClick={handleButtonClick}>
-              <BsFillSendFill color="white" />
+              <RiSendPlaneFill color={sendColor} size="40px" />
             </Button>
           </InputRightElement>
         </InputGroup>

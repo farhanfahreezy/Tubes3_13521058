@@ -27,25 +27,36 @@ const BubbleChat = ({ sender, text, index }: ChatProps) => {
         h="fit-content"
         padding={5}
         justifyContent="center"
+        alignItems="top"
       >
-        <Box boxSize="80px">
+        <Box boxSize="50px">
           {sender === 0 && (
-            <Image boxSize="80px" objectFit="cover" src={akinatorLogo} />
+            <Image
+              boxSize="50px"
+              objectFit="cover"
+              src={akinatorLogo}
+              boxShadow="lg"
+              border="0px"
+            />
           )}
         </Box>
-        <Container w="calc(100% - 200px)">
-          <Text
-            maxW="100%"
-            textAlign={sender === 0 ? "left" : "right"}
-            wordBreak="break-word"
-            verticalAlign="top"
-          >
-            {text}{" "}
-          </Text>
-        </Container>
-        <Box boxSize="80px" bg={bgBot}>
+        <Text
+          w="calc(100% - 120px)"
+          textAlign={sender === 0 ? "left" : "right"}
+          wordBreak="break-word"
+          padding={3}
+        >
+          {text}
+        </Text>
+        <Box boxSize="50px" bg={bgBot}>
           {sender === 1 && (
-            <Image boxSize="80px" objectFit="cover" src={userLogo} />
+            <Image
+              boxSize="50px"
+              objectFit="cover"
+              src={userLogo}
+              boxShadow="lg"
+              border="0px"
+            />
           )}
         </Box>
       </HStack>

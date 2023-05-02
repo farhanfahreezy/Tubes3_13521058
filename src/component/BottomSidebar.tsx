@@ -26,8 +26,8 @@ const BottomSidebar = () => {
         <RadioButton />
       </VStack>
       <VStack marginTop={1} spacing="0px">
-        <HStack>
-          <Text fontSize={18} marginTop={3}>
+        <HStack padding={2}>
+          <Text fontSize={18} marginTop={-0.5}>
             How to use
           </Text>
           <IconButton
