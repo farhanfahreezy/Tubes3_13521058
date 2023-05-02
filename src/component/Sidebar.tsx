@@ -15,11 +15,11 @@ function Sidebar() {
   return (
     <>
       <VStack>
-        <Container h="auto" mt="4">
+        <Container h="auto" my="2" ml="-2">
           <Button
             variant="outline"
             height="48px"
-            width="220px"
+            width="235px"
             border="1px"
             borderRadius="8px"
             justifyContent="flex-start"
@@ -28,13 +28,36 @@ function Sidebar() {
               transform: "scale(0.98)",
             }}
             leftIcon={<IoMdAdd color="white" />}
+            marginLeft={0}
           >
             <Text marginLeft={2} marginTop={3}>
               New Chat
             </Text>
           </Button>
         </Container>
-        <Container h="calc(100vh - 48px - 315px)">
+        <Container
+          h="calc(100vh - 48px - 315px)"
+          overflowY="scroll"
+          overflowX="hidden"
+          sx={{
+            "&::-webkit-scrollbar": {
+              width: "6px",
+              // transition: "opacity 0.2s ease-in-out",
+            },
+            "&::-webkit-scrollbar:hover": {
+              width: "6px",
+            },
+            "&::-webkit-scrollbar-track": {
+              background: "transparent",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              background: "gray.300",
+              borderRadius: "md",
+            },
+            position: "relative",
+            zIndex: "2",
+          }}
+        >
           <HistoryList title={history} />
         </Container>
         <Container h="auto" padding={3} borderTop="1px">

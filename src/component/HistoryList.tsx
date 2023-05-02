@@ -8,12 +8,12 @@ interface HistoryTitle {
 
 function HistoryList({ title }: HistoryTitle) {
   return (
-    <>
+    <Container ml="-6">
       {title.map((item) => (
         <Button
           variant="ghost"
           height="48px"
-          width="220px"
+          width="235px"
           borderRadius="8px"
           justifyContent="flex-start"
           leftIcon={<BsChatLeft color="white" />}
@@ -27,7 +27,7 @@ function HistoryList({ title }: HistoryTitle) {
           </Text>
         </Button>
       ))}
-    </>
+    </Container>
   );
 }
 

@@ -16,6 +16,7 @@ const InputContainer = () => {
           p={6}
           rounded="md"
           border="0px"
+          w="100%"
         />
         <FormHelperText padding={2}>
           Did you know that a group of flamingos is called a flamboyance?

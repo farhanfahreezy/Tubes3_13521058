@@ -9,17 +9,21 @@ const MainWindow = () => {
   const bgBorder = useColorModeValue("#202123", "#FFFFFF");
   return (
     <>
-      <Grid templateAreas={`"topBar" "chatContainer" "inputContainer"`}>
+      <Grid
+        templateAreas={`"topBar" "chatContainer" "inputContainer"`}
+        w="100%"
+      >
         <GridItem
           area="topBar"
           borderBottom="1px"
           borderColor={bgBorder}
           bg={bgTopBar}
           h="auto"
+          w="100%"
         >
           <TopBar />
         </GridItem>
-        <GridItem area="chatContainer" h="calc(100vh - 80px - 135px)">
+        <GridItem area="chatContainer" h="calc(100vh - 80px - 115px)" w="100%">
           <ChatContainer />
         </GridItem>
         <GridItem
@@ -27,6 +31,7 @@ const MainWindow = () => {
           borderTop="1px"
           borderColor={bgBorder}
           h="auto"
+          w="100%"
         >
           <InputContainer />
         </GridItem>
