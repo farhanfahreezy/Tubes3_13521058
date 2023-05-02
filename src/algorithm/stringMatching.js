@@ -189,3 +189,6 @@ database.getAllQuestionsAndAnswers()
     .catch(error => {
         console.error(error);
     });
+
+// Close the database connection
+database.disconnect();
