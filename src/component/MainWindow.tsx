@@ -23,7 +23,12 @@ const MainWindow = () => {
         >
           <TopBar />
         </GridItem>
-        <GridItem area="chatContainer" h="calc(100vh - 80px - 115px)" w="100%">
+        <GridItem
+          area="chatContainer"
+          h="calc(100vh - 80px - 115px)"
+          w="100%"
+          alignContent="flex-start"
+        >
           <ChatContainer />
         </GridItem>
         <GridItem

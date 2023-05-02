@@ -14,7 +14,7 @@ function Sidebar() {
   ];
   return (
     <>
-      <VStack>
+      <VStack textColor="#FFFFFF">
         <Container h="auto" my="2" ml="-2">
           <Button
             variant="outline"
