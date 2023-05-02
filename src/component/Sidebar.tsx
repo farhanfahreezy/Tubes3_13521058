@@ -1,7 +1,8 @@
-import { Button, Container, VStack } from "@chakra-ui/react";
-import { GrAdd } from "react-icons/gr";
+import { Button, Container, VStack, Text } from "@chakra-ui/react";
+import { IoMdAdd } from "react-icons/io";
 import HistoryList from "./HistoryList";
 import RadioButton from "./RadioButton";
+import BottomSidebar from "./BottomSidebar";
 
 function Sidebar() {
   let history = [
@@ -14,23 +15,31 @@ function Sidebar() {
   return (
     <>
       <VStack>
-        <Container padding={4} h="auto">
+        <Container h="auto" mt="4">
           <Button
             variant="outline"
             height="48px"
             width="220px"
             border="1px"
             borderRadius="8px"
-            textAlign="left"
-            // leftIcon={<GrAdd color="white" />}
+            justifyContent="flex-start"
+            _active={{
+              bg: "#343541",
+              transform: "scale(0.98)",
+            }}
+            leftIcon={<IoMdAdd color="white" />}
           >
-            New Chat
+            <Text marginLeft={2} marginTop={3}>
+              New Chat
+            </Text>
           </Button>
         </Container>
-        <Container>
+        <Container h="calc(100vh - 48px - 315px)">
           <HistoryList title={history} />
         </Container>
-        <Container>{/* <RadioButton /> */}</Container>
+        <Container h="auto" padding={3} borderTop="1px">
+          <BottomSidebar />
+        </Container>
       </VStack>
     </>
   );

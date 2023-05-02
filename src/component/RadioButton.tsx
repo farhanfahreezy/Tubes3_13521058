@@ -4,7 +4,12 @@ const RadioButton = () => {
   return (
     <FormControl as="fieldset">
       <RadioGroup defaultValue="KMP">
-        <VStack spacing="24px">
+        <VStack
+          spacing="2"
+          align="flex-start"
+          marginLeft="75px"
+          marginBottom={2}
+        >
           <Radio value="KMP">KMP</Radio>
           <Radio value="BM">BM</Radio>
         </VStack>
