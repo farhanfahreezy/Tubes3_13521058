@@ -30,6 +30,8 @@ function App() {
           bg={bgMainWindow}
           h="100vh"
           w={currentBreakpoint === "md" ? "calc(100vw - 250px)" : "100vw"}
+          overflowX="hidden"
+          overflowY="hidden"
         >
           <MainWindow />
         </GridItem>
