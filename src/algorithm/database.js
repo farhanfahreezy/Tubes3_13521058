@@ -10,10 +10,12 @@ export {
     deleteQuestion,
     getAnswer,
     getAllQuestionsAndAnswers,
+    deleteAllQuestionsAndAnswers,
     addHistory,
     getLastHistoryNumber,
     deleteHistory,
-    getDialogs
+    getDialogs,
+    deleteAllHistory
 };
 
 const connection = mysql.createConnection({
@@ -246,7 +248,7 @@ function getAllQuestionsAndAnswers() {
 
 // Delete all questions and answers from the database
 function deleteAllQuestionsAndAnswers() {
-    const sql = `DELETE FROM question_answer`;
+    const sql = `TRUNCATE question_answer`;
     connection.query(sql, (error, results) => {
         if (error) {
             console.error(error);
@@ -364,7 +366,7 @@ function getDialogs(number, callback) {
 
 // Function to delete all history from the database
 function deleteAllHistory() {
-    const sql = `DELETE FROM history`;
+    const sql = `TRUNCATE history`;
     connection.query(sql, (error, results) => {
         if (error) {
             console.error(error);
