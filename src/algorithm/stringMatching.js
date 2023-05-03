@@ -118,17 +118,7 @@ function levenshteinDistance(str1, str2) {
     return distances[str1.length][str2.length];
 }
 
-// Test database and input
-import * as database from './database.js'
-
-database.connect();
-
-const input = 'What is the capital of France?';
-
-database.addRecord('What is the capital of France?', 'Paris')
-database.addRecord('What is the capital of Spain?', 'Madrid')
-database.addRecord('What is the capital of Germany?', 'Berlin')
-
+// ---------------------- String Matching ----------------------
 function findMatchingString(input, database, selected) {
     const threshold = 0.9;
     const distances = [];
@@ -182,15 +172,3 @@ function findMatchingString(input, database, selected) {
         }
     }
 }
-
-// TODO : Show to frontend
-database.getAllQuestionsAndAnswers()
-    .then(database => {
-        console.log(findMatchingString(input, database, 1));
-    })
-    .catch(error => {
-        console.error(error);
-    });
-
-// Close the database connection
-database.disconnect();
