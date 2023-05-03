@@ -1,9 +1,17 @@
-import { Button, Container, VStack, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Container,
+  VStack,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { IoMdAdd } from "react-icons/io";
 import HistoryList from "./HistoryList";
 import BottomSidebar from "./BottomSidebar";
 
 function Sidebar() {
+  const currentBreakpoint = useBreakpointValue({ base: "base", md: "md" });
+
   let history = [
     {
       title: "What are the benefits of meditation?",
@@ -92,7 +100,11 @@ function Sidebar() {
           </Button>
         </Container>
         <Container
-          h="calc(100vh - 48px - 290px)"
+          h={
+            currentBreakpoint == "md"
+              ? "calc(100vh - 338px)"
+              : "calc(100vh - 374px)"
+          }
           overflowY="scroll"
           overflowX="hidden"
           sx={{

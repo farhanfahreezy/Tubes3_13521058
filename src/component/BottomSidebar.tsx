@@ -1,14 +1,17 @@
 import RadioButton from "./RadioButton";
 import {
+  Container,
   Divider,
   HStack,
   IconButton,
   Link,
+  Show,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { AiFillGithub } from "react-icons/ai";
+import ModeSwitch from "./ModeSwitch";
 
 const BottomSidebar = () => {
   return (
@@ -26,6 +29,11 @@ const BottomSidebar = () => {
         <RadioButton />
       </VStack>
       <VStack marginTop={1} spacing="0px">
+        <Show below="md">
+          <Container px="0" marginLeft="52px" marginTop={2}>
+            <ModeSwitch />
+          </Container>
+        </Show>
         <HStack padding={2}>
           <Text fontSize={18} marginTop={-0.5}>
             How to use

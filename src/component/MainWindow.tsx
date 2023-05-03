@@ -1,5 +1,4 @@
 import { Grid, GridItem, useColorModeValue } from "@chakra-ui/react";
-import React from "react";
 import TopBar from "./TopBar";
 import ChatContainer from "./ChatContainer";
 import InputContainer from "./InputContainer";
@@ -18,14 +17,14 @@ const MainWindow = () => {
           borderBottom="1px"
           borderColor={bgBorder}
           bg={bgTopBar}
-          h="auto"
+          h="fit-content"
           w="100%"
         >
           <TopBar />
         </GridItem>
         <GridItem
           area="chatContainer"
-          h="calc(100vh - 80px - 115px)"
+          h="calc(100vh - 80px - 106px)"
           w="100%"
           alignContent="flex-start"
         >
