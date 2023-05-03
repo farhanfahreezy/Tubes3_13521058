@@ -244,6 +244,18 @@ function getAllQuestionsAndAnswers() {
     });
 }
 
+// Delete all questions and answers from the database
+function deleteAllQuestionsAndAnswers() {
+    const sql = `DELETE FROM question_answer`;
+    connection.query(sql, (error, results) => {
+        if (error) {
+            console.error(error);
+        } else {
+            console.log('Semua pertanyaan dan jawaban telah dihapus');
+        }
+    });
+}
+
 
 /*
     Functions for history
@@ -346,6 +358,18 @@ function getDialogs(number, callback) {
                 console.log(`History number ${number} tidak ditemukan`)
                 callback(null);
             }
+        }
+    });
+}
+
+// Function to delete all history from the database
+function deleteAllHistory() {
+    const sql = `DELETE FROM history`;
+    connection.query(sql, (error, results) => {
+        if (error) {
+            console.error(error);
+        } else {
+            console.log('Semua history telah dihapus');
         }
     });
 }
