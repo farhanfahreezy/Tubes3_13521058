@@ -17,10 +17,10 @@ export {
 };
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'akinator',
-  password: 'akinator123',
-  database: 'akinator'
+  host: 'sql12.freesqldatabase.com',
+  user: 'sql12615682',
+  password: 'iZcTdrx8Ap',
+  database: 'sql12615682'
 });
 
 // Function to connect to the database
