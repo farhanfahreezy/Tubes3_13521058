@@ -1,4 +1,7 @@
 import createPromptSync from 'prompt-sync';
+export {
+	calculate
+};
 
 const prompt = createPromptSync({ autocomplete: false });
 

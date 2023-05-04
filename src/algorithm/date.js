@@ -1,11 +1,8 @@
-import readline from 'readline';
+export {
+    getDayOfDate
+};
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
-rl.question('Enter a date (DD/MM/YYYY): ', (dateStr) => {
+function getDayOfDate(dateStr) {
     // Array of month names
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'];
@@ -13,40 +10,30 @@ rl.question('Enter a date (DD/MM/YYYY): ', (dateStr) => {
     // Accept any combination of /, -, or spaces as separators
     const dateArr = dateStr.split(/[\/\s-]+|^[a-zA-Z]{3}/);
     if (dateArr.length !== 3) {
-        console.log(`Invalid input: ${dateStr}. Please enter a valid date in the DD/MM/YYYY format.`);
-        rl.close();
-        return;
+        return `Invalid input: ${dateStr}. Please enter a valid date in the DD/MM/YYYY format.`;
     }
 
     // Check if the day, month, and year is valid
     const day = parseInt(dateArr[0]);
     if (isNaN(day) || day < 1) {
-        console.log(`Invalid day: ${dateArr[0]}. Please enter a valid day.`);
-        rl.close();
-        return;
+        return `Invalid day: ${dateArr[0]}. Please enter a valid day.`;
     }
 
     let month = parseInt(dateArr[1]);
     if (isNaN(month)) {
         month = monthNames.findIndex(name => name.toLowerCase() === dateArr[1].toLowerCase()) + 1;
         if (month === 0) {
-            console.log(`Invalid month: ${dateArr[1]}. Please enter a valid month.`);
-            rl.close();
-            return;
+            return `Invalid month: ${dateArr[1]}. Please enter a valid month.`;
         }
     }
 
     if (month < 1 || month > 12) {
-        console.log(`Invalid month: ${month}. Please enter a valid month.`);
-        rl.close();
-        return;
+        return `Invalid month: ${month}. Please enter a valid month.`;
     }
 
     const year = parseInt(dateArr[2]);
     if (isNaN(year) || year < 1000 || year > 9999) {
-        console.log(`Invalid year: ${dateArr[2]}. Please enter a valid year.`);
-        rl.close();
-        return;
+        return `Invalid year: ${dateArr[2]}. Please enter a valid year.`;
     }
 
     let maxDay = 31;
@@ -63,17 +50,12 @@ rl.question('Enter a date (DD/MM/YYYY): ', (dateStr) => {
     }
 
     if (day > maxDay) {
-        console.log(`Invalid day: ${dateArr[0]}. ${month}/${year} has ${maxDay} days.`);
-        rl.close();
-        return;
+        return `Invalid day: ${dateArr[0]}. ${month}/${year} has ${maxDay} days.`;
     }
     // Determine the day of a given date
     const date = new Date(year, month - 1, day);
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const dayOfWeek = daysOfWeek[date.getDay()];
 
-    // TODO : Show result to frontend
-    console.log(`The day of the week for ${dateStr} is ${dayOfWeek}.`);
-
-    rl.close();
-});
+    return `The day of the week for ${dateStr} is ${dayOfWeek}.`;
+}
