@@ -5,16 +5,14 @@ import userLogo from "../../assets/img/userLogo.png";
 interface ChatProps {
   sender: number;
   text: string;
-  index: number;
 }
 
-const BubbleChat = ({ sender, text, index }: ChatProps) => {
+const BubbleChat = ({ sender, text }: ChatProps) => {
   const bgUser = useColorModeValue("#FFFFFF", "#343541");
   const bgBot = useColorModeValue("#F7F7F8", "#444654");
   return (
     <>
       <HStack
-        key={index}
         bg={sender === 0 ? bgBot : bgUser}
         w="100%"
         h="fit-content"

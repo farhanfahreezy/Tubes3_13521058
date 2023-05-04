@@ -47,7 +47,7 @@ const ChatContainer = ({ chat }: ChatCointainerProps) => {
         <BubbleChat
           sender={item.who}
           text={item.dialog}
-          index={item.ID}
+          key={item.ID}
         ></BubbleChat>
       ))}
       console.log(dummyChat)

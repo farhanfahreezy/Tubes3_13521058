@@ -22,32 +22,11 @@ interface InputContainerProps {
 
 const InputContainer = ({
   inputValue,
-  setInputValue,
-  outputValue,
-  setOutputValue,
   handleInputChange,
   handleButtonClick,
   handleInputEnter,
 }: InputContainerProps) => {
   const sendColor = useColorModeValue("black", "white");
-  // const messagebBelow = useColorModeValue(
-  //   "AAHHH! MY EYEESS",
-  //   "Did you know that a group of flamingos is called a flamboyance?"
-  // );
-
-  // const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   setInputValue(event.target.value);
-  // };
-
-  // const handleButtonClick = () => {
-  //   setOutputValue(inputValue);
-  // };
-
-  // const handleInputEnter = (event: KeyboardEvent<HTMLInputElement>) => {
-  //   if (event.key === "Enter") {
-  //     setOutputValue(inputValue);
-  //   }
-  // };
   return (
     <>
       <FormControl padding={5}>
@@ -72,9 +51,7 @@ const InputContainer = ({
         </InputGroup>
 
         <FormHelperText padding={2}>
-          {outputValue === ""
-            ? "Did you know that a group of flamingos is called a flamboyance?"
-            : outputValue}
+          Did you know that a group of flamingos is called a flamboyance?
         </FormHelperText>
       </FormControl>
     </>

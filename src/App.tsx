@@ -10,6 +10,7 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
+import * as database from "./algorithm/database.js";
 import MainWindow from "./component/mainwindow/MainWindow";
 import Sidebar from "./component/sidebar/Sidebar";
 
@@ -72,14 +73,16 @@ function App() {
     setHistoryList([...historyList, newL]);
   };
 
-  const addChatHistory = () => {
-    const newC = {
-      ID: 2,
-      number: 0,
-      who: 1,
-      dialog: "New?",
-    };
-    setChatArray([...chatArray, newC]);
+  const addChatBubble = (dialog: string) => {
+    if (dialog !== "") {
+      const newC = {
+        ID: 2,
+        number: 0,
+        who: 1,
+        dialog: dialog,
+      };
+      setChatArray([...chatArray, newC]);
+    }
   };
 
   const switchChatHistory = (id: number) => {
@@ -137,6 +140,13 @@ function App() {
           "Yeah, I’ve played a few shows at local bars and cafes. It’s a great way to connect with other musicians.",
       },
     ];
+    database.connect();
+    // database.getDialogs(0, (dialogs: ChatHistory) => {
+    //   console.log(dialogs);
+    // });
+    database.disconnect();
+    console.log("som");
+
     setChatArray(dummyChat);
   };
 
@@ -157,13 +167,15 @@ function App() {
 
   const handleButtonClick = () => {
     setOutputValue(inputValue);
-    addChatHistory();
+    addChatBubble(inputValue);
+    setInputValue("");
   };
 
   const handleInputEnter = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       setOutputValue(inputValue);
-      addChatHistory();
+      addChatBubble(inputValue);
+      setInputValue("");
     }
   };
   return (
