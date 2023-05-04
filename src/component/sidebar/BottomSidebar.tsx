@@ -16,9 +16,14 @@ import ModeSwitch from "../ModeSwitch";
 interface BottomSidebarProps {
   selectedVal: string;
   handleChage: (num: string) => void;
+  onOpenModal: () => void;
 }
 
-const BottomSidebar = ({ selectedVal, handleChage }: BottomSidebarProps) => {
+const BottomSidebar = ({
+  selectedVal,
+  handleChage,
+  onOpenModal,
+}: BottomSidebarProps) => {
   return (
     <>
       <VStack bg="#40414F" borderRadius="10">
@@ -48,6 +53,7 @@ const BottomSidebar = ({ selectedVal, handleChage }: BottomSidebarProps) => {
             aria-label="Home"
             colorScheme="none"
             size="none"
+            onClick={onOpenModal}
           />
         </HStack>
         <Link

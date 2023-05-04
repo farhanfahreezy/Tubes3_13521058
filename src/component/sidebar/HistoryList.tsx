@@ -1,7 +1,6 @@
 import { Button, Container, Text } from "@chakra-ui/react";
-import { set } from "lodash";
-import { MouseEvent, useState } from "react";
 import { BsChatLeft } from "react-icons/bs";
+import { BiTrash } from "react-icons/bi";
 
 interface HistoryProps {
   title: string;
@@ -13,6 +12,7 @@ interface HistoryListProps {
   selectedId: number;
   handleSelectList: (id: number) => void;
   switchChatHistory: (id: number) => void;
+  deleteAHistory: (id: number) => void;
 }
 
 function HistoryList({
@@ -20,6 +20,7 @@ function HistoryList({
   selectedId,
   handleSelectList,
   switchChatHistory,
+  deleteAHistory,
 }: HistoryListProps) {
   const handleListWhenClicked = (id: number) => {
     handleSelectList(id);
@@ -53,12 +54,26 @@ function HistoryList({
                 "linear-gradient(to left, transparent 0%, black 10%, black 100%)",
             }}
             marginLeft={-4}
-            w="calc(100% - 10px)"
+            w={
+              item.ID === selectedId ? "calc(100% - 35px)" : "calc(100% - 10px)"
+            }
           >
-            <Text marginLeft={2} marginBottom={1} fontWeight="normal">
+            <Text marginLeft={2} marginBottom={0} fontWeight="normal">
               {item.title}
             </Text>
           </Container>
+          {item.ID === selectedId && (
+            <Button
+              padding={2.5}
+              variant="ghost"
+              colorScheme="none"
+              onClick={() => {
+                deleteAHistory(item.ID);
+              }}
+            >
+              <BiTrash color="white" size="sm" />
+            </Button>
+          )}
         </Button>
       ))}
     </Container>

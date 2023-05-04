@@ -1,4 +1,5 @@
 import { useState, ChangeEvent, KeyboardEvent } from "react";
+import url from "url";
 import {
   Drawer,
   DrawerOverlay,
@@ -9,6 +10,16 @@ import {
   useBreakpointValue,
   useColorModeValue,
   useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  Text,
+  ModalFooter,
+  Button,
+  Link,
 } from "@chakra-ui/react";
 import * as database from "./algorithm/database.js";
 import MainWindow from "./component/mainwindow/MainWindow";
@@ -36,6 +47,11 @@ function App() {
   const [historyList, setHistoryList] = useState<HistoryProps[]>([]);
   const [numOfHistory, setNumOfHistory] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenModal,
+    onOpen: onOpenModal,
+    onClose: onCloseModal,
+  } = useDisclosure();
 
   // Color
   const bgSideBar = useColorModeValue("#202123", "#202123");
@@ -50,7 +66,7 @@ function App() {
     setNumOfHistory(numOfHistory - 1);
   };
 
-  const changeHistoryList = () => {
+  const changeHistoryList = (num: number) => {
     const history = [
       {
         title: "What are the benefits of meditation?",
@@ -66,11 +82,18 @@ function App() {
 
   const addHistoryList = () => {
     const newL = {
-      title: "New Chat",
+      title: "How can I learn a new language quickly",
       ID: numOfHistory,
     };
     addNumOfHistory();
     setHistoryList([...historyList, newL]);
+  };
+
+  const removeHistoryList = (id: number) => {
+    setHistoryList((historyList) =>
+      historyList.filter((item) => item.ID !== id)
+    );
+    // subNumOfHistory();
   };
 
   const addChatBubble = (dialog: string) => {
@@ -140,12 +163,12 @@ function App() {
           "Yeah, I’ve played a few shows at local bars and cafes. It’s a great way to connect with other musicians.",
       },
     ];
-    database.connect();
+    // database.connect();
     // database.getDialogs(0, (dialogs: ChatHistory) => {
     //   console.log(dialogs);
     // });
-    database.disconnect();
-    console.log("som");
+    // database.disconnect();
+    // console.log("som");
 
     setChatArray(dummyChat);
   };
@@ -196,6 +219,8 @@ function App() {
               switchChatHistory={switchChatHistory}
               historyList={historyList}
               addHistoryList={addHistoryList}
+              onOpenModal={onOpenModal}
+              deleteAHistory={removeHistoryList}
             />
           </GridItem>
         </Show>
@@ -231,9 +256,39 @@ function App() {
             switchChatHistory={switchChatHistory}
             historyList={historyList}
             addHistoryList={addHistoryList}
+            onOpenModal={onOpenModal}
+            deleteAHistory={removeHistoryList}
           />
         </DrawerContent>
       </Drawer>
+      <Modal
+        blockScrollOnMount={false}
+        isOpen={isOpenModal}
+        onClose={onCloseModal}
+        isCentered
+      >
+        <ModalOverlay backdropFilter="blur(2px)" />
+        <ModalContent bg={bgMainWindow}>
+          <ModalHeader>Thank you for using this web-app!</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            Hey there! So, this website is still in its development phase, but
+            fear not, updates are coming your way! ...Well, at least that's the
+            plan. Let's hope for the best, shall we?
+          </ModalBody>
+
+          <ModalFooter>
+            <Link
+              href="https://github.com/farhanfahreezy/Tubes3_13521058"
+              target="_blank"
+            >
+              <Button colorScheme="blue" mr={3}>
+                Visit Our Github
+              </Button>
+            </Link>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 }

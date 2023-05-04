@@ -22,6 +22,8 @@ interface SidebarProps {
   switchChatHistory: (id: number) => void;
   historyList: HistoryProps[];
   addHistoryList: () => void;
+  onOpenModal: () => void;
+  deleteAHistory: (id: number) => void;
 }
 
 function Sidebar({
@@ -32,6 +34,8 @@ function Sidebar({
   switchChatHistory,
   historyList,
   addHistoryList,
+  onOpenModal,
+  deleteAHistory,
 }: SidebarProps) {
   const currentBreakpoint = useBreakpointValue({ base: "base", md: "md" });
   return (
@@ -53,7 +57,7 @@ function Sidebar({
             marginLeft={0}
             onClick={addHistoryList}
           >
-            <Text marginLeft={0} marginBottom={1}>
+            <Text marginLeft={0} marginBottom={0}>
               New Chat
             </Text>
           </Button>
@@ -90,10 +94,15 @@ function Sidebar({
             selectedId={selectedId}
             handleSelectList={handleSelectList}
             switchChatHistory={switchChatHistory}
+            deleteAHistory={deleteAHistory}
           />
         </Container>
         <Container h="auto" padding={3} borderTop="1px">
-          <BottomSidebar selectedVal={selectedVal} handleChage={handleChage} />
+          <BottomSidebar
+            selectedVal={selectedVal}
+            handleChage={handleChage}
+            onOpenModal={onOpenModal}
+          />
         </Container>
       </VStack>
     </>

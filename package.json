@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "predeploy" : "npm run build",
+    "predeploy": "npm run build",
     "deploy": "vite build && gh-pages -d dist",
     "build": "tsc && vite build",
     "preview": "vite preview"
@@ -24,9 +24,11 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icon": "^1.0.0",
-    "react-icons": "^4.8.0"
+    "react-icons": "^4.8.0",
+    "typeface-roboto": "^1.1.13"
   },
   "devDependencies": {
+    "@types/node": "^18.16.3",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@vitejs/plugin-react": "^3.1.0",
