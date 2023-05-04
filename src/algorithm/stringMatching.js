@@ -1,6 +1,7 @@
 import createPromptSync from 'prompt-sync';
 export { 
-    levenshteinDistance 
+    levenshteinDistance,
+    findMatchingString
 };
 
 const prompt = createPromptSync({ autocomplete: false });
