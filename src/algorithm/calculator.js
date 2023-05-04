@@ -1,10 +1,6 @@
-import createPromptSync from 'prompt-sync';
 export {
 	calculate
 };
-
-const prompt = createPromptSync({ autocomplete: false });
-
 
 function calculate(query) {
     let components = query.replace(/\s/g, '').replace(/([\+\-\*\/\(\)])/g, ' $1 ').trim().split(/\s+/);
@@ -37,7 +33,7 @@ function calculate(query) {
 			}
         	operators.push(component);
         } else {
-        	throw new Error(`Invalid operator: ${component}`);
+        	return 'Invalid operator';
         }
     }
 
@@ -49,11 +45,11 @@ function calculate(query) {
     }
 
     if (stack.length !== 1 || isNaN(stack[0])) {
-      	throw new Error('Invalid expression');
+      	return 'Invalid expression';
     }
 
     if (balance !== 0) { // Check if the balance of brackets is not zero
-      	throw new Error('Missing bracket');
+      	return 'missing bracket';
     }
 
     return stack[0];
@@ -72,13 +68,13 @@ function precedence(op) {
 }
 
 
-try {
-	// TODO : replace query with user input
-	let query = prompt('Enter an expression: ');
-	let result = calculate(query);
-	// TODO : Show to frontend
-	console.log(`The result is: ${result.toString()}`);
-} catch (error) {
-	// TODO : Show to frontend
-    console.error(error.message);
-}
+// try {
+// 	// TODO : replace query with user input
+// 	let query = prompt('Enter an expression: ');
+// 	let result = calculate(query);
+// 	// TODO : Show to frontend
+// 	console.log(`The result is: ${result.toString()}`);
+// } catch (error) {
+// 	// TODO : Show to frontend
+//     console.error(error.message);
+// }

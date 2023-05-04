@@ -57,5 +57,6 @@ function getDayOfDate(dateStr) {
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const dayOfWeek = daysOfWeek[date.getDay()];
 
-    return `The day of the week for ${dateStr} is ${dayOfWeek}.`;
+    return `${dayOfWeek}.`;
 }
+

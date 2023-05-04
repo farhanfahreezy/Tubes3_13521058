@@ -1,10 +1,7 @@
-import createPromptSync from 'prompt-sync';
 export { 
     levenshteinDistance,
     findMatchingString
 };
-
-const prompt = createPromptSync({ autocomplete: false });
 
 // ---------------------- Boyer-Moore Algorithm ----------------------
 function bmMatch(text, pattern) {
@@ -159,17 +156,14 @@ function findMatchingString(input, database, selected) {
         const options = sortedDistances.slice(0, 3).map((entry, index) => `${index+1}. ${entry.question}`);
         const message = `Sorry, I couldn't find an exact match. Did you mean one of these instead?\n${options.join('\n')}`;
 
-        // display nearest questions
-        console.log(message);
+        // const response = prompt('Choose between the options above : ');
+        // const choice = parseInt(response);
 
-        const response = prompt('Choose between the options above : ');
-        const choice = parseInt(response);
-
-        // return the answer of the selected question
-        if (choice >= 1 && choice <= 3) {
-            return sortedDistances[choice-1].answer;
-        } else {
-            return 'Invalid choice';
-        }
+        // if (choice >= 1 && choice <= 3) {
+        //     return sortedDistances[choice-1].answer;
+        // } else {
+        //     return 'Invalid choice';
+        // }
+        return message;
     }
 }
