@@ -10,30 +10,30 @@ function getDayOfDate(dateStr) {
     // Accept any combination of /, -, or spaces as separators
     const dateArr = dateStr.split(/[\/\s-]+|^[a-zA-Z]{3}/);
     if (dateArr.length !== 3) {
-        return `Invalid input: ${dateStr}. Please enter a valid date in the DD/MM/YYYY format.`;
+        return "invalid input";
     }
 
     // Check if the day, month, and year is valid
     const day = parseInt(dateArr[0]);
     if (isNaN(day) || day < 1) {
-        return `Invalid day: ${dateArr[0]}. Please enter a valid day.`;
+        return "invalid day";
     }
 
     let month = parseInt(dateArr[1]);
     if (isNaN(month)) {
         month = monthNames.findIndex(name => name.toLowerCase() === dateArr[1].toLowerCase()) + 1;
         if (month === 0) {
-            return `Invalid month: ${dateArr[1]}. Please enter a valid month.`;
+            return "invalid month";
         }
     }
 
     if (month < 1 || month > 12) {
-        return `Invalid month: ${month}. Please enter a valid month.`;
+        return "invalid month";
     }
 
     const year = parseInt(dateArr[2]);
     if (isNaN(year) || year < 1000 || year > 9999) {
-        return `Invalid year: ${dateArr[2]}. Please enter a valid year.`;
+        return "invalid year";
     }
 
     let maxDay = 31;
@@ -50,7 +50,7 @@ function getDayOfDate(dateStr) {
     }
 
     if (day > maxDay) {
-        return `Invalid day: ${dateArr[0]}. ${month}/${year} has ${maxDay} days.`;
+        return "invalid date";
     }
     // Determine the day of a given date
     const date = new Date(year, month - 1, day);

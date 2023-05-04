@@ -33,7 +33,7 @@ function calculate(query) {
 			}
         	operators.push(component);
         } else {
-        	return 'Invalid operator';
+        	return 'invalid operator';
         }
     }
 
@@ -45,7 +45,7 @@ function calculate(query) {
     }
 
     if (stack.length !== 1 || isNaN(stack[0])) {
-      	return 'Invalid expression';
+      	return 'invalid expression';
     }
 
     if (balance !== 0) { // Check if the balance of brackets is not zero
