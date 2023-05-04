@@ -3,24 +3,34 @@ import { set } from "lodash";
 import { MouseEvent, useState } from "react";
 import { BsChatLeft } from "react-icons/bs";
 
-interface History {
+interface HistoryProps {
   title: string;
-  id: number;
+  ID: number;
 }
 
-interface HistoryTitle {
-  hist: History[];
+interface HistoryListProps {
+  hist: HistoryProps[];
   selectedId: number;
   handleSelectList: (id: number) => void;
+  switchChatHistory: (id: number) => void;
 }
 
-function HistoryList({ hist, selectedId, handleSelectList }: HistoryTitle) {
+function HistoryList({
+  hist,
+  selectedId,
+  handleSelectList,
+  switchChatHistory,
+}: HistoryListProps) {
+  const handleListWhenClicked = (id: number) => {
+    handleSelectList(id);
+    switchChatHistory(id);
+  };
   return (
     <Container ml="-6">
       {hist.map((item) => (
         <Button
-          key={item.id}
-          variant={item.id === selectedId ? "solid" : "ghost"}
+          key={item.ID}
+          variant={item.ID === selectedId ? "solid" : "ghost"}
           height="48px"
           width="235px"
           borderRadius="8px"
@@ -34,7 +44,7 @@ function HistoryList({ hist, selectedId, handleSelectList }: HistoryTitle) {
           textOverflow="ellipsis"
           whiteSpace="nowrap"
           onClick={() => {
-            handleSelectList(item.id);
+            handleListWhenClicked(item.ID);
           }}
         >
           <Container

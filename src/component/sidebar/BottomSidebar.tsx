@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { AiFillGithub } from "react-icons/ai";
-import ModeSwitch from "./ModeSwitch";
+import ModeSwitch from "../ModeSwitch";
 
 interface BottomSidebarProps {
   selectedVal: string;

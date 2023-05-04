@@ -8,7 +8,13 @@ import {
 import TopBar from "./TopBar";
 import ChatContainer from "./ChatContainer";
 import InputContainer from "./InputContainer";
-import { i } from "mathjs";
+
+interface ChatHistory {
+  ID: number;
+  number: number;
+  who: number;
+  dialog: string;
+}
 
 interface MainWindowProps {
   inputValue: string;
@@ -18,6 +24,8 @@ interface MainWindowProps {
   handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void;
   handleButtonClick: () => void;
   handleInputEnter: (event: KeyboardEvent<HTMLInputElement>) => void;
+  chat: ChatHistory[];
+  onOpen: () => void;
 }
 
 const MainWindow = ({
@@ -28,6 +36,8 @@ const MainWindow = ({
   handleInputChange,
   handleButtonClick,
   handleInputEnter,
+  chat,
+  onOpen,
 }: MainWindowProps) => {
   const bgTopBar = useColorModeValue("#202123", "#343541");
   const bgBorder = useColorModeValue("#202123", "#FFFFFF");
@@ -47,7 +57,7 @@ const MainWindow = ({
           h="fit-content"
           w="100%"
         >
-          <TopBar />
+          <TopBar onOpen={onOpen} />
         </GridItem>
         <GridItem
           area="chatContainer"
@@ -59,7 +69,7 @@ const MainWindow = ({
           w="100%"
           alignContent="flex-start"
         >
-          <ChatContainer />
+          <ChatContainer chat={chat} />
         </GridItem>
         <GridItem
           area="inputContainer"

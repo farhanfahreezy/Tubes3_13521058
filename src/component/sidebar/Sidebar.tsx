@@ -9,11 +9,19 @@ import { IoMdAdd } from "react-icons/io";
 import HistoryList from "./HistoryList";
 import BottomSidebar from "./BottomSidebar";
 
+interface HistoryProps {
+  title: string;
+  ID: number;
+}
+
 interface SidebarProps {
   selectedId: number;
   handleSelectList: (id: number) => void;
   selectedVal: string;
   handleChage: (num: string) => void;
+  switchChatHistory: (id: number) => void;
+  historyList: HistoryProps[];
+  addHistoryList: () => void;
 }
 
 function Sidebar({
@@ -21,73 +29,11 @@ function Sidebar({
   handleSelectList,
   selectedVal,
   handleChage,
+  switchChatHistory,
+  historyList,
+  addHistoryList,
 }: SidebarProps) {
   const currentBreakpoint = useBreakpointValue({ base: "base", md: "md" });
-
-  let history = [
-    {
-      title: "What are the benefits of meditation?",
-      id: 0,
-    },
-    {
-      title: "How can I learn a new language quickly?",
-      id: 1,
-    },
-    {
-      title: "What are some tips for improving my public speaking skills?",
-      id: 2,
-    },
-    {
-      title: "What is the best way to save money for retirement?",
-      id: 3,
-    },
-    {
-      title:
-        "What are some common interview questions and how should I answer them?",
-      id: 4,
-    },
-    {
-      title: "How can I improve my writing skills?",
-      id: 5,
-    },
-    {
-      title: "What are the best ways to stay motivated when studying?",
-      id: 6,
-    },
-    {
-      title: "How can I start my own business?",
-      id: 7,
-    },
-    {
-      title: "What are some healthy eating habits?",
-      id: 8,
-    },
-    {
-      title: "What are the benefits of exercise?",
-      id: 9,
-    },
-    {
-      title: "How can I improve my time management skills?",
-      id: 10,
-    },
-    {
-      title: "What are some effective study techniques?",
-      id: 11,
-    },
-    {
-      title: "How can I reduce stress in my daily life?",
-      id: 12,
-    },
-    {
-      title:
-        "What are some effective ways to network and build professional relationships?",
-      id: 13,
-    },
-    {
-      title: "How can I improve my leadership skills?",
-      id: 14,
-    },
-  ];
   return (
     <>
       <VStack textColor="#FFFFFF">
@@ -105,6 +51,7 @@ function Sidebar({
             }}
             leftIcon={<IoMdAdd color="white" />}
             marginLeft={0}
+            onClick={addHistoryList}
           >
             <Text marginLeft={0} marginBottom={1}>
               New Chat
@@ -139,9 +86,10 @@ function Sidebar({
           }}
         >
           <HistoryList
-            hist={history}
+            hist={historyList}
             selectedId={selectedId}
             handleSelectList={handleSelectList}
+            switchChatHistory={switchChatHistory}
           />
         </Container>
         <Container h="auto" padding={3} borderTop="1px">

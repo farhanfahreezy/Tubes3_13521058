@@ -1,6 +1,6 @@
 import { Box, useColorModeValue, Text, HStack, Image } from "@chakra-ui/react";
-import akinatorLogo from "../assets/img/akinatorLogo.png";
-import userLogo from "../assets/img/userLogo.png";
+import akinatorLogo from "../../assets/img/akinatorLogo.png";
+import userLogo from "../../assets/img/userLogo.png";
 
 interface ChatProps {
   sender: number;

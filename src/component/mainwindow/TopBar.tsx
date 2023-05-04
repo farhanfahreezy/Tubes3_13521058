@@ -1,26 +1,21 @@
-import { useRef } from "react";
 import {
   Box,
   Button,
   Container,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
   HStack,
   Show,
   Spacer,
   Text,
-  useColorModeValue,
-  useDisclosure,
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import ModeSwitch from "./ModeSwitch";
-import Sidebar from "./Sidebar";
+import ModeSwitch from "../ModeSwitch";
 
-const TopBar = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const bgSideBar = useColorModeValue("#202123", "#202123");
+interface TopBarProps {
+  onOpen: () => void;
+}
+
+const TopBar = ({ onOpen }: TopBarProps) => {
   const currentBreakpoint = useBreakpointValue({ base: "base", md: "md" });
   return (
     <HStack justifyContent="space-between" justify="center">
@@ -51,12 +46,20 @@ const TopBar = () => {
       </Show>
 
       {/* Drawer */}
-      <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
+      {/* <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent bg={bgSideBar} maxW="250px">
-          <Sidebar />
+          <Sidebar
+            selectedId={selectedIndex}
+            handleSelectList={handleSelectList}
+            selectedVal={selectedAlgorithm}
+            handleChage={handleSelectedAlgorithm}
+            switchChatHistory={switchChatHistory}
+            historyList={historyList}
+            addHistoryList={addHistoryList}
+          />
         </DrawerContent>
-      </Drawer>
+      </Drawer> */}
     </HStack>
   );
 };

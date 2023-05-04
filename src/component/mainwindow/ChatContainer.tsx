@@ -5,36 +5,19 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import BubbleChat from "./BubbleChat";
-import * as database from "../algorithm/database";
-import { forEach } from "mathjs";
 
-// interface ChatCointainerProps {
-//   history: ChatHistory[];
-// }
+interface ChatCointainerProps {
+  chat: ChatHistory[];
+}
 
-// interface ChatHistory {
-//   ID: number;
-//   number: number;
-//   who: number;
-//   dialog: string;
-// }
+interface ChatHistory {
+  ID: number;
+  number: number;
+  who: number;
+  dialog: string;
+}
 
-// function createChat(chatProp: any) {
-//   return (
-//     <BubbleChat
-//       sender={chatProp.who}
-//       text={chatProp.dialog}
-//       index={chatProp.ID}
-//     ></BubbleChat>
-//   );
-// }
-
-const ChatContainer = () => {
-  // database.connect();
-  // const dummyChat = database.getDialogs(0, () => {
-  //   console.log("found");
-  // });
-  // database.disconnect();
+const ChatContainer = ({ chat }: ChatCointainerProps) => {
   return (
     <VStack
       h="100%"
@@ -60,13 +43,13 @@ const ChatContainer = () => {
         zIndex: "2",
       }}
     >
-      {/* {dummyChat.map((item: ChatHistory) => (
+      {chat.map((item: ChatHistory) => (
         <BubbleChat
           sender={item.who}
           text={item.dialog}
           index={item.ID}
         ></BubbleChat>
-      ))} */}
+      ))}
       console.log(dummyChat)
     </VStack>
   );
