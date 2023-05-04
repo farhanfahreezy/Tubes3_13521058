@@ -9,7 +9,19 @@ import { IoMdAdd } from "react-icons/io";
 import HistoryList from "./HistoryList";
 import BottomSidebar from "./BottomSidebar";
 
-function Sidebar() {
+interface SidebarProps {
+  selectedId: number;
+  handleSelectList: (id: number) => void;
+  selectedVal: string;
+  handleChage: (num: string) => void;
+}
+
+function Sidebar({
+  selectedId,
+  handleSelectList,
+  selectedVal,
+  handleChage,
+}: SidebarProps) {
   const currentBreakpoint = useBreakpointValue({ base: "base", md: "md" });
 
   let history = [
@@ -126,10 +138,14 @@ function Sidebar() {
             zIndex: "2",
           }}
         >
-          <HistoryList hist={history} />
+          <HistoryList
+            hist={history}
+            selectedId={selectedId}
+            handleSelectList={handleSelectList}
+          />
         </Container>
         <Container h="auto" padding={3} borderTop="1px">
-          <BottomSidebar />
+          <BottomSidebar selectedVal={selectedVal} handleChage={handleChage} />
         </Container>
       </VStack>
     </>

@@ -4,6 +4,14 @@ import * as database from './database.js';
     FOR TESTING PURPOSES
 */
 
-database.connect();
+function showData(){
+    database.connect();
+    console.log("as");
+    database.getDialogs(0,(dialogs) => {
+        console.log(dialogs)
+    });
 
-database.disconnect();
+    database.disconnect();
+}
+
+showData()

@@ -10,28 +10,44 @@ import {
 import { useState, ChangeEvent, KeyboardEvent } from "react";
 import { RiSendPlaneFill } from "react-icons/ri";
 
-const InputContainer = () => {
-  const [inputValue, setInputValue] = useState("");
-  const [outputValue, setOutputValue] = useState("");
+interface InputContainerProps {
+  inputValue: string;
+  setInputValue: (newString: string) => void;
+  outputValue: string;
+  setOutputValue: (newString: string) => void;
+  handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleButtonClick: () => void;
+  handleInputEnter: (event: KeyboardEvent<HTMLInputElement>) => void;
+}
+
+const InputContainer = ({
+  inputValue,
+  setInputValue,
+  outputValue,
+  setOutputValue,
+  handleInputChange,
+  handleButtonClick,
+  handleInputEnter,
+}: InputContainerProps) => {
   const sendColor = useColorModeValue("black", "white");
   // const messagebBelow = useColorModeValue(
   //   "AAHHH! MY EYEESS",
   //   "Did you know that a group of flamingos is called a flamboyance?"
   // );
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
+  // const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  //   setInputValue(event.target.value);
+  // };
 
-  const handleButtonClick = () => {
-    setOutputValue(inputValue);
-  };
+  // const handleButtonClick = () => {
+  //   setOutputValue(inputValue);
+  // };
 
-  const handleInputEnter = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      setOutputValue(inputValue);
-    }
-  };
+  // const handleInputEnter = (event: KeyboardEvent<HTMLInputElement>) => {
+  //   if (event.key === "Enter") {
+  //     setOutputValue(inputValue);
+  //   }
+  // };
   return (
     <>
       <FormControl padding={5}>

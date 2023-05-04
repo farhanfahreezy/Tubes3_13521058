@@ -1,3 +1,4 @@
+import { ChangeEvent, KeyboardEvent } from "react";
 import {
   Grid,
   GridItem,
@@ -7,8 +8,27 @@ import {
 import TopBar from "./TopBar";
 import ChatContainer from "./ChatContainer";
 import InputContainer from "./InputContainer";
+import { i } from "mathjs";
 
-const MainWindow = () => {
+interface MainWindowProps {
+  inputValue: string;
+  setInputValue: (newString: string) => void;
+  outputValue: string;
+  setOutputValue: (newString: string) => void;
+  handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleButtonClick: () => void;
+  handleInputEnter: (event: KeyboardEvent<HTMLInputElement>) => void;
+}
+
+const MainWindow = ({
+  inputValue,
+  setInputValue,
+  outputValue,
+  setOutputValue,
+  handleInputChange,
+  handleButtonClick,
+  handleInputEnter,
+}: MainWindowProps) => {
   const bgTopBar = useColorModeValue("#202123", "#343541");
   const bgBorder = useColorModeValue("#202123", "#FFFFFF");
   const currentBreakpoint = useBreakpointValue({ base: "base", md: "md" });
@@ -48,7 +68,15 @@ const MainWindow = () => {
           h="fit-content"
           w="100%"
         >
-          <InputContainer />
+          <InputContainer
+            inputValue={inputValue}
+            setInputValue={setInputValue}
+            outputValue={outputValue}
+            setOutputValue={setOutputValue}
+            handleInputChange={handleInputChange}
+            handleButtonClick={handleButtonClick}
+            handleInputEnter={handleInputEnter}
+          />
         </GridItem>
       </Grid>
     </>

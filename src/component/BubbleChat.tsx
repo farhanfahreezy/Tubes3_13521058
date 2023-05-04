@@ -22,13 +22,17 @@ const BubbleChat = ({ sender, text, index }: ChatProps) => {
         justifyContent="center"
         alignItems="top"
       >
-        <Box boxSize="50px">
+        <Box
+          boxSize="50px"
+          borderRadius={5}
+          overflow="hidden"
+          boxShadow={sender === 0 ? "lg" : ""}
+        >
           {sender === 0 && (
             <Image
               boxSize="50px"
               objectFit="cover"
               src={akinatorLogo}
-              boxShadow="lg"
               border="0px"
             />
           )}
@@ -41,13 +45,18 @@ const BubbleChat = ({ sender, text, index }: ChatProps) => {
         >
           {text}
         </Text>
-        <Box boxSize="50px" bg={bgBot}>
+        <Box
+          boxSize="50px"
+          bg={bgBot}
+          borderRadius={5}
+          overflow="hidden"
+          boxShadow={sender === 1 ? "lg" : ""}
+        >
           {sender === 1 && (
             <Image
               boxSize="50px"
               objectFit="cover"
               src={userLogo}
-              boxShadow="lg"
               border="0px"
             />
           )}

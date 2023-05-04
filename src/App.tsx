@@ -1,3 +1,4 @@
+import { useState, ChangeEvent, KeyboardEvent } from "react";
 import {
   Grid,
   GridItem,
@@ -9,6 +10,39 @@ import MainWindow from "./component/MainWindow";
 import Sidebar from "./component/Sidebar";
 
 function App() {
+  // All useState
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState("KMP");
+  const [inputValue, setInputValue] = useState("");
+  const [outputValue, setOutputValue] = useState("");
+
+  // Changes
+
+  // History List Handler
+  const handleSelectList = (id: number) => {
+    setSelectedIndex(id);
+  };
+
+  // Radio Button Handler
+  const handleSelectedAlgorithm = (algo: string) => {
+    setSelectedAlgorithm(algo);
+  };
+
+  // Input Output Handler
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleButtonClick = () => {
+    setOutputValue(inputValue);
+  };
+
+  const handleInputEnter = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      setOutputValue(inputValue);
+    }
+  };
+
   const bgSideBar = useColorModeValue("#202123", "#202123");
   const bgMainWindow = useColorModeValue("FFFFFF", "#343541");
   const currentBreakpoint = useBreakpointValue({ base: "base", md: "md" });
@@ -22,7 +56,12 @@ function App() {
       >
         <Show above="md">
           <GridItem area="sidebar" bg={bgSideBar} h="100vh" w="250px">
-            <Sidebar />
+            <Sidebar
+              selectedId={selectedIndex}
+              handleSelectList={handleSelectList}
+              selectedVal={selectedAlgorithm}
+              handleChage={handleSelectedAlgorithm}
+            />
           </GridItem>
         </Show>
         <GridItem
@@ -33,7 +72,15 @@ function App() {
           overflowX="hidden"
           overflowY="hidden"
         >
-          <MainWindow />
+          <MainWindow
+            inputValue={inputValue}
+            setInputValue={setInputValue}
+            outputValue={outputValue}
+            setOutputValue={setOutputValue}
+            handleInputChange={handleInputChange}
+            handleButtonClick={handleButtonClick}
+            handleInputEnter={handleInputEnter}
+          />
         </GridItem>
       </Grid>
     </>

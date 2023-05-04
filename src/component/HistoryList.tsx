@@ -10,16 +10,17 @@ interface History {
 
 interface HistoryTitle {
   hist: History[];
+  selectedId: number;
+  handleSelectList: (id: number) => void;
 }
 
-function HistoryList({ hist }: HistoryTitle) {
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+function HistoryList({ hist, selectedId, handleSelectList }: HistoryTitle) {
   return (
     <Container ml="-6">
       {hist.map((item) => (
         <Button
           key={item.id}
-          variant={item.id === selectedIndex ? "solid" : "ghost"}
+          variant={item.id === selectedId ? "solid" : "ghost"}
           height="48px"
           width="235px"
           borderRadius="8px"
@@ -33,7 +34,7 @@ function HistoryList({ hist }: HistoryTitle) {
           textOverflow="ellipsis"
           whiteSpace="nowrap"
           onClick={() => {
-            setSelectedIndex(item.id);
+            handleSelectList(item.id);
           }}
         >
           <Container

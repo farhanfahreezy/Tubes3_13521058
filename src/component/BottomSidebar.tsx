@@ -13,7 +13,12 @@ import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { AiFillGithub } from "react-icons/ai";
 import ModeSwitch from "./ModeSwitch";
 
-const BottomSidebar = () => {
+interface BottomSidebarProps {
+  selectedVal: string;
+  handleChage: (num: string) => void;
+}
+
+const BottomSidebar = ({ selectedVal, handleChage }: BottomSidebarProps) => {
   return (
     <>
       <VStack bg="#40414F" borderRadius="10">
@@ -26,7 +31,7 @@ const BottomSidebar = () => {
           Algorithm
         </Text>
         <Divider borderWidth={2} overflow="hidden" />
-        <RadioButton />
+        <RadioButton selectedVal={selectedVal} handleChage={handleChage} />
       </VStack>
       <VStack marginTop={1} spacing="0px">
         <Show below="md">

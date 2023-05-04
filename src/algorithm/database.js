@@ -342,7 +342,7 @@ function deleteHistory(number) {
     });
 */
 function getDialogs(number, callback) {
-    const sqlSelect = `SELECT * FROM history WHERE number = ? ORDER BY timestamp ASC`;
+    const sqlSelect = `SELECT * FROM history WHERE number = ? ORDER BY timestamp, ID ASC`;
     connection.query(sqlSelect, [number], (error, results) => {
         if (error) {
             console.error(error);
@@ -351,7 +351,9 @@ function getDialogs(number, callback) {
             let dialogs = [];
             for (const row of results) {
                 found = true;
-                dialogs.push(row.dialog);
+                dialogs.push(
+                    {ID :row.ID, number : row.number, who: row.who, dialog: row.dialog}
+                    );
             }
             if (found) {
                 console.log(`History number ${number} ditemukan dan dialog telah diambil`)
