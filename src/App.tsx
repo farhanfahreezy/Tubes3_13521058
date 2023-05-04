@@ -59,6 +59,12 @@ function App() {
   const currentBreakpoint = useBreakpointValue({ base: "base", md: "md" });
 
   // Changes
+  const deleteAllHistory = () => {
+    setHistoryList([]);
+    setNumOfHistory(0);
+    setChatArray([]);
+  };
+
   const addNumOfHistory = () => {
     setNumOfHistory(numOfHistory + 1);
   };
@@ -163,12 +169,12 @@ function App() {
           "Yeah, I’ve played a few shows at local bars and cafes. It’s a great way to connect with other musicians.",
       },
     ];
-    // database.connect();
-    // database.getDialogs(0, (dialogs: ChatHistory) => {
-    //   console.log(dialogs);
-    // });
-    // database.disconnect();
-    // console.log("som");
+    database.connect();
+    database.getDialogs(0, (dialogs: ChatHistory) => {
+      console.log(dialogs);
+    });
+    database.disconnect();
+    console.log("som");
 
     setChatArray(dummyChat);
   };
@@ -221,6 +227,8 @@ function App() {
               addHistoryList={addHistoryList}
               onOpenModal={onOpenModal}
               deleteAHistory={removeHistoryList}
+              numOfHistory={numOfHistory}
+              deleteAllHistory={deleteAllHistory}
             />
           </GridItem>
         </Show>
@@ -242,6 +250,7 @@ function App() {
             handleInputEnter={handleInputEnter}
             chat={chatArray}
             onOpen={onOpen}
+            numOfHistory={numOfHistory}
           />
         </GridItem>
       </Grid>
@@ -258,6 +267,8 @@ function App() {
             addHistoryList={addHistoryList}
             onOpenModal={onOpenModal}
             deleteAHistory={removeHistoryList}
+            numOfHistory={numOfHistory}
+            deleteAllHistory={deleteAllHistory}
           />
         </DrawerContent>
       </Drawer>

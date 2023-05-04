@@ -6,6 +6,7 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { IoMdAdd } from "react-icons/io";
+import { BiTrash } from "react-icons/bi";
 import HistoryList from "./HistoryList";
 import BottomSidebar from "./BottomSidebar";
 
@@ -24,6 +25,8 @@ interface SidebarProps {
   addHistoryList: () => void;
   onOpenModal: () => void;
   deleteAHistory: (id: number) => void;
+  numOfHistory: number;
+  deleteAllHistory: () => void;
 }
 
 function Sidebar({
@@ -36,8 +39,11 @@ function Sidebar({
   addHistoryList,
   onOpenModal,
   deleteAHistory,
+  numOfHistory,
+  deleteAllHistory,
 }: SidebarProps) {
   const currentBreakpoint = useBreakpointValue({ base: "base", md: "md" });
+
   return (
     <>
       <VStack textColor="#FFFFFF">
@@ -64,9 +70,14 @@ function Sidebar({
         </Container>
         <Container
           h={
-            currentBreakpoint == "md"
-              ? "calc(100vh - 338px)"
+            currentBreakpoint === "md"
+              ? numOfHistory !== 0
+                ? "calc(100vh - 386px)"
+                : "calc(100vh - 338px)"
+              : numOfHistory !== 0
+              ? "calc(100vh - 422px)"
               : "calc(100vh - 374px)"
+            // : "calc(100vh - 374px)"
           }
           overflowY="scroll"
           overflowX="hidden"
@@ -97,6 +108,19 @@ function Sidebar({
             deleteAHistory={deleteAHistory}
           />
         </Container>
+        {numOfHistory !== 0 && (
+          <Button
+            padding={2.5}
+            px={5}
+            variant="ghost"
+            onClick={deleteAllHistory}
+          >
+            <BiTrash color="white" size="sm" />
+            <Text paddingLeft={2} paddingTop={1}>
+              Delete All
+            </Text>
+          </Button>
+        )}
         <Container h="auto" padding={3} borderTop="1px">
           <BottomSidebar
             selectedVal={selectedVal}

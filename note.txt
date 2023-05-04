@@ -1,0 +1,2 @@
+id history list masih belum sync dengan yang database, masih pakae numOfHistory
+konekin db bruhhhh

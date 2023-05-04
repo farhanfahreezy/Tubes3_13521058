@@ -4,6 +4,11 @@ import {
   GridItem,
   useColorModeValue,
   useBreakpointValue,
+  Container,
+  Text,
+  HStack,
+  Spacer,
+  VStack,
 } from "@chakra-ui/react";
 import TopBar from "./TopBar";
 import ChatContainer from "./ChatContainer";
@@ -26,6 +31,7 @@ interface MainWindowProps {
   handleInputEnter: (event: KeyboardEvent<HTMLInputElement>) => void;
   chat: ChatHistory[];
   onOpen: () => void;
+  numOfHistory: number;
 }
 
 const MainWindow = ({
@@ -38,6 +44,7 @@ const MainWindow = ({
   handleInputEnter,
   chat,
   onOpen,
+  numOfHistory,
 }: MainWindowProps) => {
   const bgTopBar = useColorModeValue("#202123", "#343541");
   const bgBorder = useColorModeValue("#202123", "#FFFFFF");
@@ -69,6 +76,20 @@ const MainWindow = ({
           w="100%"
           alignContent="flex-start"
         >
+          {numOfHistory === 0 && (
+            <VStack verticalAlign="center">
+              <Container
+                maxW={currentBreakpoint === "md" ? "550px" : "420px"}
+                fontSize={currentBreakpoint === "md" ? "5xl" : "4xl"}
+              >
+                <Text>For starter,</Text>
+                <HStack spacing="20px">
+                  <Text>Lets </Text>
+                  <Text fontWeight="bold">write a message!</Text>
+                </HStack>
+              </Container>
+            </VStack>
+          )}
           <ChatContainer chat={chat} />
         </GridItem>
         <GridItem
