@@ -124,8 +124,11 @@ function App() {
     //   setChatArray([...chatArray, newQ, newA]);
     // }
     axios
-      .get(`http://localhost:5174/sendChat`, {
-        params: { number: selectedIndex, who: 1, dialog: dialog },
+      .post(`http://localhost:5174/sendChat`, {
+        number: selectedIndex,
+        who: 1,
+        dialog: dialog,
+        algorithms: selectedAlgorithm,
       })
       .then((res) => {
         console.log(res.data);
