@@ -9,6 +9,7 @@ import {
   HStack,
   Spacer,
   VStack,
+  Flex,
 } from "@chakra-ui/react";
 import TopBar from "./TopBar";
 import ChatContainer from "./ChatContainer";
@@ -77,18 +78,23 @@ const MainWindow = ({
           alignContent="flex-start"
         >
           {numOfHistory === 0 && (
-            <VStack verticalAlign="center">
+            <Flex
+              align="center"
+              justify="center"
+              h="100%"
+              flexDirection="column"
+            >
               <Container
                 maxW={currentBreakpoint === "md" ? "550px" : "420px"}
                 fontSize={currentBreakpoint === "md" ? "5xl" : "4xl"}
               >
                 <Text>For starter,</Text>
-                <HStack spacing="20px">
+                <HStack spacing="10px">
                   <Text>Lets </Text>
                   <Text fontWeight="bold">write a message!</Text>
                 </HStack>
               </Container>
-            </VStack>
+            </Flex>
           )}
           <ChatContainer chat={chat} />
         </GridItem>

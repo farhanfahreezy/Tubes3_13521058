@@ -1,4 +1,4 @@
-import * as database from './database.js';
+import * as database from "./database.js";
 
 /*
     FOR TESTING PURPOSES
@@ -6,8 +6,8 @@ import * as database from './database.js';
 
 database.connect();
 
-database.getDialogs(0,(dialogs) => {
-    console.log(dialogs)
+database.getDialogs(0, (dialogs) => {
+  console.log(dialogs);
 });
 
 database.disconnect();

@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, KeyboardEvent } from "react";
-import url from "url";
+import * as database from "./algorithm/database";
 import {
   Drawer,
   DrawerOverlay,
@@ -21,7 +21,6 @@ import {
   Button,
   Link,
 } from "@chakra-ui/react";
-import * as database from "./algorithm/database.js";
 import MainWindow from "./component/mainwindow/MainWindow";
 import Sidebar from "./component/sidebar/Sidebar";
 
@@ -96,21 +95,29 @@ function App() {
   };
 
   const removeHistoryList = (id: number) => {
+    setChatArray([]);
     setHistoryList((historyList) =>
       historyList.filter((item) => item.ID !== id)
     );
+
     // subNumOfHistory();
   };
 
   const addChatBubble = (dialog: string) => {
     if (dialog !== "") {
-      const newC = {
+      const newQ = {
         ID: 2,
         number: 0,
         who: 1,
         dialog: dialog,
       };
-      setChatArray([...chatArray, newC]);
+      const newA = {
+        ID: 99,
+        number: 0,
+        who: 0,
+        dialog: "Yang bener",
+      };
+      setChatArray([...chatArray, newQ, newA]);
     }
   };
 
@@ -169,12 +176,10 @@ function App() {
           "Yeah, I’ve played a few shows at local bars and cafes. It’s a great way to connect with other musicians.",
       },
     ];
+    console.log("tes");
     database.connect();
-    database.getDialogs(0, (dialogs: ChatHistory) => {
-      console.log(dialogs);
-    });
+    database.getDialogs(0, (res: ChatHistory[]) => console.log(res));
     database.disconnect();
-    console.log("som");
 
     setChatArray(dummyChat);
   };
