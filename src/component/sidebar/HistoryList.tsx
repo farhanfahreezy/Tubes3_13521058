@@ -3,8 +3,8 @@ import { BsChatLeft } from "react-icons/bs";
 import { BiTrash } from "react-icons/bi";
 
 interface HistoryProps {
-  title: string;
-  ID: number;
+  number: number;
+  dialog: string;
 }
 
 interface HistoryListProps {
@@ -30,8 +30,8 @@ function HistoryList({
     <Container ml="-6">
       {hist.map((item) => (
         <Button
-          key={item.ID}
-          variant={item.ID === selectedId ? "solid" : "ghost"}
+          key={item.number}
+          variant={item.number === selectedId ? "solid" : "ghost"}
           height="48px"
           width="235px"
           borderRadius="8px"
@@ -45,7 +45,7 @@ function HistoryList({
           textOverflow="ellipsis"
           whiteSpace="nowrap"
           onClick={() => {
-            handleListWhenClicked(100);
+            handleListWhenClicked(item.number);
           }}
         >
           <Container
@@ -55,20 +55,22 @@ function HistoryList({
             }}
             marginLeft={-4}
             w={
-              item.ID === selectedId ? "calc(100% - 35px)" : "calc(100% - 10px)"
+              item.number === selectedId
+                ? "calc(100% - 35px)"
+                : "calc(100% - 10px)"
             }
           >
             <Text marginLeft={2} marginBottom={0} fontWeight="normal">
-              {item.title}
+              {item.dialog}
             </Text>
           </Container>
-          {item.ID === selectedId && (
+          {item.number === selectedId && (
             <Button
               padding={2.5}
               variant="ghost"
               colorScheme="none"
               onClick={() => {
-                deleteAHistory(item.ID);
+                deleteAHistory(item.number);
               }}
             >
               <BiTrash color="white" size="sm" />

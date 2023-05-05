@@ -33,6 +33,7 @@ interface MainWindowProps {
   chat: ChatHistory[];
   onOpen: () => void;
   numOfHistory: number;
+  selectedIndex: number;
 }
 
 const MainWindow = ({
@@ -46,6 +47,7 @@ const MainWindow = ({
   chat,
   onOpen,
   numOfHistory,
+  selectedIndex,
 }: MainWindowProps) => {
   const bgTopBar = useColorModeValue("#202123", "#343541");
   const bgBorder = useColorModeValue("#202123", "#FFFFFF");
@@ -77,7 +79,7 @@ const MainWindow = ({
           w="100%"
           alignContent="flex-start"
         >
-          {numOfHistory === 0 && (
+          {selectedIndex === -1 && (
             <Flex
               align="center"
               justify="center"

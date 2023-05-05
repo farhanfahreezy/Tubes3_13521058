@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, KeyboardEvent } from "react";
+import { useState, ChangeEvent, KeyboardEvent, useEffect } from "react";
 import axios, { AxiosRequestConfig } from "axios";
 import {
   Drawer,
@@ -25,8 +25,8 @@ import MainWindow from "./component/mainwindow/MainWindow";
 import Sidebar from "./component/sidebar/Sidebar";
 
 interface HistoryProps {
-  title: string;
-  ID: number;
+  number: number;
+  dialog: string;
 }
 
 interface ChatHistory {
@@ -57,6 +57,29 @@ function App() {
   const bgMainWindow = useColorModeValue("FFFFFF", "#343541");
   const currentBreakpoint = useBreakpointValue({ base: "base", md: "md" });
 
+  // Setting History List
+  useEffect(() => {
+    async function fetchData() {
+      const config: AxiosRequestConfig = {
+        url: `http://localhost:5174/getHistory/`,
+        method: "get",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      axios(config)
+        .then((res) => {
+          console.log(res.data);
+          setHistoryList(res.data);
+          setNumOfHistory(res.data.length);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+    fetchData();
+  }, []);
+
   // Changes
   const deleteAllHistory = () => {
     setHistoryList([]);
@@ -71,24 +94,10 @@ function App() {
     setNumOfHistory(numOfHistory - 1);
   };
 
-  const changeHistoryList = (num: number) => {
-    const history = [
-      {
-        title: "What are the benefits of meditation?",
-        ID: 0,
-      },
-      {
-        title: "How can I learn a new language quickly?",
-        ID: 1,
-      },
-    ];
-    setHistoryList(history);
-  };
-
   const addHistoryList = () => {
-    const newL = {
-      title: "How can I learn a new language quickly",
-      ID: numOfHistory,
+    const newL: HistoryProps = {
+      number: numOfHistory,
+      dialog: "New Chat",
     };
     addNumOfHistory();
     setHistoryList([...historyList, newL]);
@@ -97,7 +106,7 @@ function App() {
   const removeHistoryList = (id: number) => {
     setChatArray([]);
     setHistoryList((historyList) =>
-      historyList.filter((item) => item.ID !== id)
+      historyList.filter((item) => item.number !== id)
     );
 
     // subNumOfHistory();
@@ -122,70 +131,14 @@ function App() {
   };
 
   const switchChatHistory = (id: number) => {
-    const dummyChat = [
-      {
-        ID: 2,
-        number: 0,
-        who: 1,
-        dialog: "Hi there, hows your day going?",
-      },
-      {
-        ID: 3,
-        number: 0,
-        who: 0,
-        dialog: "It’s going pretty well, thanks for asking. How about you?",
-      },
-      {
-        ID: 4,
-        number: 0,
-        who: 1,
-        dialog:
-          "I’m doing pretty good, thanks. Have you done anything fun today?",
-      },
-      {
-        ID: 5,
-        number: 0,
-        who: 0,
-        dialog:
-          "Yeah, I went for a hike in the mountains earlier. It was beautiful.",
-      },
-      {
-        ID: 6,
-        number: 0,
-        who: 1,
-        dialog:
-          "That sounds like a great way to spend the day. Did you take any pictures?",
-      },
-      {
-        ID: 7,
-        number: 0,
-        who: 0,
-        dialog: "Yeah, I did. I can show them to you later if you want.",
-      },
-      {
-        ID: 8,
-        number: 0,
-        who: 1,
-        dialog: "Sure, that would be great. What kind of camera do you use?",
-      },
-      {
-        ID: 23,
-        number: 0,
-        who: 0,
-        dialog:
-          "Yeah, I’ve played a few shows at local bars and cafes. It’s a great way to connect with other musicians.",
-      },
-    ];
     const config: AxiosRequestConfig = {
-      url: "http://localhost:5174/getDialog0/",
+      url: `http://localhost:5174/getDialog${id}/`,
       method: "get",
       headers: {
         "Content-Type": "application/json",
       },
-      // params: {
-      //   historyNumber: id,
-      // },
     };
+    console.log(id);
     axios(config)
       .then((res) => {
         console.log(res.data);
@@ -196,8 +149,6 @@ function App() {
       });
 
     console.log("tes");
-
-    setChatArray(dummyChat);
   };
 
   // History List Handler
@@ -272,6 +223,7 @@ function App() {
             chat={chatArray}
             onOpen={onOpen}
             numOfHistory={numOfHistory}
+            selectedIndex={selectedIndex}
           />
         </GridItem>
       </Grid>

@@ -11,8 +11,8 @@ import HistoryList from "./HistoryList";
 import BottomSidebar from "./BottomSidebar";
 
 interface HistoryProps {
-  title: string;
-  ID: number;
+  number: number;
+  dialog: string;
 }
 
 interface SidebarProps {
