@@ -12,50 +12,39 @@ AI chatbots are computer programs that use artificial intelligence and natural l
 We are inspired by the most popular AI chatbot , chatGPT, to create a simple chatbot anyone can try and converse with to consult about their daily problems 
 ![](image/Home.png)
 
-## Requirement
+## Technologies
+- Node Js
+- Express
+- Vite
+- MySQL
+- Axios
+- React
+- Chakra UI
 
-- `bootstrap`: A popular CSS framework for building responsive, mobile-first websites. To install, run the following command:
-
-```
-npm install bootstrap@5.2.3
-```
-
-- `mathjs`: A JavaScript library for performing mathematical operations. To install, run the following command:
-
-```
-npm install mathjs@11.8.0
-```
-
-- `mysql`: A Node.js driver for connecting to MySQL databases. To install, run the following command:
-
-```
-npm install mysql@2.18.1
-```
-
-- `prompt-sync`: A Node.js module for synchronous user input. To install, run the following command:
-
-```
-npm install prompt-sync@4.2.0
-```
-
-- `react`: A popular JavaScript library for building user interfaces. To install version 18.2.0, run the following command:
-
-```
-npm install react@18.2.0
-```
-
-- `react-dom`: A package that provides DOM-specific methods for React components. To install version 18.2.0, run the following command:
-
-```
-npm install react-dom@18.2.0
-```
-
-## Run Program
+## Setup
 To run the Akinator program, follow these steps:
 
 1. Clone this repository or download it as a ZIP file and extract it to your local machine.
-2. Open root directory of this repository and run `npm run dev` on terminal.
-3. 
+```bash
+git clone https://github.com/farhanfahreezy/Tubes3_13521058
+```
+2. Clone another repository using the link below : 
+```bash
+git clone https://github.com/farhanfahreezy/Akinator_BE
+```
+3. Open the Akinator_BE repository and open a new terminal, then type :
+```
+npm install 
+```
+4. Enter another command below to build backend :
+```
+npm run startDev
+```
+5. Open the link written on your terminal, it should be written with the format http://localhost:<port>/
+6. You should be able to open the application
+
+
+
 
 ## Contributors
 
@@ -64,3 +53,20 @@ To run the Akinator program, follow these steps:
 | Ghazi Akmal Fauzan | 13521058 |
 | Mohammad Farhan Fahrezy | 13521106 |
 | Muhammad Naufal Nalendra | 13521152 |
+
+<a name="project-status">
+
+## Project Status
+Project is: _complete_
+
+<a name="room-for-improvement">
+
+## Room for Improvement
+- Menambahkan fitur-fitur lainnya.
+
+<a name="acknowledgements">
+
+## Acknowledgements
+- Thanks To Allah SWT and His guidance
+
+<a name="contact"></a>
