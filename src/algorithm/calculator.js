@@ -3,6 +3,7 @@ export {
 };
 
 function calculate(query) {
+	
     let components = query.replace(/\s/g, '').replace(/([\+\-\*\/\(\)])/g, ' $1 ').trim().split(/\s+/);
     let stack = [];
     let operators = [];
@@ -36,13 +37,15 @@ function calculate(query) {
         	return 'invalid operator';
         }
     }
-
-    while (operators.length > 0) {
-		let op = operators.pop();
-		let b = stack.pop();
-		let a = stack.pop();
-		stack.push(eval(`${a} ${op} ${b}`));
-    }
+	
+    if(balance === 0) {
+		while (operators.length > 0) {
+			let op = operators.pop();
+			let b = stack.pop();
+			let a = stack.pop();
+			stack.push(eval(`${a} ${op} ${b}`));
+		}
+	}
 
     if (stack.length !== 1 || isNaN(stack[0])) {
       	return 'invalid expression';
@@ -66,15 +69,3 @@ function precedence(op) {
 		return 0;
 	}
 }
-
-
-// try {
-// 	// TODO : replace query with user input
-// 	let query = prompt('Enter an expression: ');
-// 	let result = calculate(query);
-// 	// TODO : Show to frontend
-// 	console.log(`The result is: ${result.toString()}`);
-// } catch (error) {
-// 	// TODO : Show to frontend
-//     console.error(error.message);
-// }
