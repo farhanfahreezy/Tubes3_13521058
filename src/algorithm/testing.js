@@ -6,8 +6,8 @@ import * as database from "./database.js";
 
 database.connect();
 
-database.getDialogs(0, (dialogs) => {
-  console.log(dialogs);
-});
+database.addHistory(1, 0, "OK");
+database.addHistory(2, 0, "OK");
+database.addHistory(3, 0, "OK");
 
 database.disconnect();

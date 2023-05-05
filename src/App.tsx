@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, KeyboardEvent, useEffect } from "react";
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig, Axios } from "axios";
 import {
   Drawer,
   DrawerOverlay,
@@ -57,17 +57,11 @@ function App() {
   const bgMainWindow = useColorModeValue("FFFFFF", "#343541");
   const currentBreakpoint = useBreakpointValue({ base: "base", md: "md" });
 
-  // Setting History List
+  // Getting History List
   useEffect(() => {
     async function fetchData() {
-      const config: AxiosRequestConfig = {
-        url: `http://localhost:5174/getHistory/`,
-        method: "get",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      axios(config)
+      axios
+        .get("http://localhost:5174/getHistory/")
         .then((res) => {
           console.log(res.data);
           setHistoryList(res.data);
@@ -113,33 +107,40 @@ function App() {
   };
 
   const addChatBubble = (dialog: string) => {
-    if (dialog !== "") {
-      const newQ = {
-        ID: 2,
-        number: 0,
-        who: 1,
-        dialog: dialog,
-      };
-      const newA = {
-        ID: 99,
-        number: 0,
-        who: 0,
-        dialog: "Yang bener",
-      };
-      setChatArray([...chatArray, newQ, newA]);
-    }
+    // NUMBER DARI SELECTED INDEX AJAA
+    // if (dialog !== "") {
+    //   const newQ = {
+    //     ID: 2,
+    //     number: number,
+    //     who: 1,
+    //     dialog: dialog,
+    //   };
+    //   const newA = {
+    //     ID: 99,
+    //     number: number,
+    //     who: 0,
+    //     dialog: "Yang bener",
+    //   };
+    //   setChatArray([...chatArray, newQ, newA]);
+    // }
+    axios
+      .get(`http://localhost:5174/sendChat`, {
+        params: { number: selectedIndex, who: 1, dialog: dialog },
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
+  // getDialog
   const switchChatHistory = (id: number) => {
-    const config: AxiosRequestConfig = {
-      url: `http://localhost:5174/getDialog${id}/`,
-      method: "get",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    console.log(id);
-    axios(config)
+    axios
+      .get(`http://localhost:5174/getDialog`, {
+        params: { historyNumber: id },
+      })
       .then((res) => {
         console.log(res.data);
         setChatArray(res.data);
@@ -147,8 +148,6 @@ function App() {
       .catch((error) => {
         console.error(error);
       });
-
-    console.log("tes");
   };
 
   // History List Handler
