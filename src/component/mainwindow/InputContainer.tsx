@@ -7,14 +7,11 @@ import {
   InputRightElement,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useState, ChangeEvent, KeyboardEvent } from "react";
+import { ChangeEvent, KeyboardEvent } from "react";
 import { RiSendPlaneFill } from "react-icons/ri";
 
 interface InputContainerProps {
   inputValue: string;
-  setInputValue: (newString: string) => void;
-  outputValue: string;
-  setOutputValue: (newString: string) => void;
   handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void;
   handleButtonClick: () => void;
   handleInputEnter: (event: KeyboardEvent<HTMLInputElement>) => void;

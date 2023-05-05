@@ -98,6 +98,7 @@ function App() {
   };
 
   const removeHistoryList = (id: number) => {
+    // TODO: IMPLEMENTASI
     setChatArray([]);
     setHistoryList((historyList) =>
       historyList.filter((item) => item.number !== id)
@@ -107,22 +108,6 @@ function App() {
   };
 
   const addChatBubble = (dialog: string) => {
-    // NUMBER DARI SELECTED INDEX AJAA
-    // if (dialog !== "") {
-    //   const newQ = {
-    //     ID: 2,
-    //     number: number,
-    //     who: 1,
-    //     dialog: dialog,
-    //   };
-    //   const newA = {
-    //     ID: 99,
-    //     number: number,
-    //     who: 0,
-    //     dialog: "Yang bener",
-    //   };
-    //   setChatArray([...chatArray, newQ, newA]);
-    // }
     axios
       .post(`http://localhost:5174/sendChat`, {
         number: selectedIndex,
@@ -131,7 +116,11 @@ function App() {
         algorithms: selectedAlgorithm,
       })
       .then((res) => {
+        switchChatHistory(selectedIndex);
+        switchChatHistory(selectedIndex);
         console.log(res.data);
+        switchChatHistory(selectedIndex);
+        switchChatHistory(selectedIndex);
       })
       .catch((error) => {
         console.error(error);
@@ -172,6 +161,7 @@ function App() {
     setOutputValue(inputValue);
     addChatBubble(inputValue);
     setInputValue("");
+    switchChatHistory(selectedIndex);
   };
 
   const handleInputEnter = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -179,6 +169,7 @@ function App() {
       setOutputValue(inputValue);
       addChatBubble(inputValue);
       setInputValue("");
+      switchChatHistory(selectedIndex);
     }
   };
   return (
