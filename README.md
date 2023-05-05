@@ -40,6 +40,10 @@ npm install
 ```
 npm run startDev
 ```
+5. Open the Tubes3_13521058 and type the code below into the terminal :
+```
+npm run dev
+```
 5. Open the link written on your terminal, it should be written with the format http://localhost:<port>/
 6. You should be able to open the application
 
