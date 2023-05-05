@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, KeyboardEvent } from "react";
-import * as database from "./algorithm/database";
+import axios, { AxiosRequestConfig } from "axios";
 import {
   Drawer,
   DrawerOverlay,
@@ -176,10 +176,26 @@ function App() {
           "Yeah, I’ve played a few shows at local bars and cafes. It’s a great way to connect with other musicians.",
       },
     ];
+    const config: AxiosRequestConfig = {
+      url: "http://localhost:5174/getDialog0/",
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // params: {
+      //   historyNumber: id,
+      // },
+    };
+    axios(config)
+      .then((res) => {
+        console.log(res.data);
+        setChatArray(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
     console.log("tes");
-    database.connect();
-    database.getDialogs(0, (res: ChatHistory[]) => console.log(res));
-    database.disconnect();
 
     setChatArray(dummyChat);
   };

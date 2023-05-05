@@ -1,13 +1,11 @@
-import express from "express"
-const mysql = require("mysql")
-const cors = require("cors");
+import * as database from "./database.js";
 
-const app = express();
-app.use(cors());
+export const onClickButton = () => {
+  get();
+};
 
-const connection = mysql.createConnection({
-    host: 'sql12.freesqldatabase.com',
-    user: 'sql12615682',
-    password: 'iZcTdrx8Ap',
-    database: 'sql12615682'
-  });
+export function get() {
+  database.connect();
+  database.getDialogs(0, (res) => console.log(res));
+  database.disconnect();
+}

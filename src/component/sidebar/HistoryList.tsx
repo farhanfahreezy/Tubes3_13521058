@@ -45,7 +45,7 @@ function HistoryList({
           textOverflow="ellipsis"
           whiteSpace="nowrap"
           onClick={() => {
-            handleListWhenClicked(item.ID);
+            handleListWhenClicked(100);
           }}
         >
           <Container
