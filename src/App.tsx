@@ -74,6 +74,10 @@ function App() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    switchChatHistory();
+  }, [selectedIndex]);
+
   // Changes
   const deleteAllHistory = () => {
     setHistoryList([]);
@@ -107,31 +111,41 @@ function App() {
     // subNumOfHistory();
   };
 
-  const addChatBubble = (dialog: string) => {
+  const addChatBubble = () => {
     axios
       .post(`http://localhost:5174/sendChat`, {
         number: selectedIndex,
-        who: 1,
-        dialog: dialog,
+        // who: 1,
+        dialog: inputValue,
         algorithms: selectedAlgorithm,
       })
       .then((res) => {
-        switchChatHistory(selectedIndex);
-        switchChatHistory(selectedIndex);
-        console.log(res.data);
-        switchChatHistory(selectedIndex);
-        switchChatHistory(selectedIndex);
+        switchChatHistory();
       })
       .catch((error) => {
         console.error(error);
       });
   };
 
+  const addChatBubbleAnswer = () => {
+    axios
+      .post(`http://localhost:5174/getAnswer`, {
+        number: selectedIndex,
+        dialog: inputValue,
+      })
+      .then((res) => {
+        switchChatHistory();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   // getDialog
-  const switchChatHistory = (id: number) => {
+  const switchChatHistory = () => {
     axios
       .get(`http://localhost:5174/getDialog`, {
-        params: { historyNumber: id },
+        params: { historyNumber: selectedIndex },
       })
       .then((res) => {
         console.log(res.data);
@@ -159,17 +173,19 @@ function App() {
 
   const handleButtonClick = () => {
     setOutputValue(inputValue);
-    addChatBubble(inputValue);
+    addChatBubble();
+    addChatBubbleAnswer();
     setInputValue("");
-    switchChatHistory(selectedIndex);
+    switchChatHistory();
   };
 
   const handleInputEnter = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       setOutputValue(inputValue);
-      addChatBubble(inputValue);
+      addChatBubble();
+      addChatBubbleAnswer();
       setInputValue("");
-      switchChatHistory(selectedIndex);
+      switchChatHistory();
     }
   };
   return (

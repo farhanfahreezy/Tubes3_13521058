@@ -5,6 +5,7 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import BubbleChat from "./BubbleChat";
+import { useEffect, useRef } from "react";
 
 interface ChatCointainerProps {
   chat: ChatHistory[];
@@ -18,8 +19,15 @@ interface ChatHistory {
 }
 
 const ChatContainer = ({ chat }: ChatCointainerProps) => {
+  const scrollableRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (scrollableRef.current) {
+      scrollableRef.current.scrollTop = scrollableRef.current.scrollHeight;
+    }
+  }, [chat]);
   return (
     <VStack
+      ref={scrollableRef}
       h="100%"
       w="100%"
       overflowY="scroll"

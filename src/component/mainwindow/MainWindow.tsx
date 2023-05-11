@@ -109,9 +109,6 @@ const MainWindow = ({
         >
           <InputContainer
             inputValue={inputValue}
-            setInputValue={setInputValue}
-            outputValue={outputValue}
-            setOutputValue={setOutputValue}
             handleInputChange={handleInputChange}
             handleButtonClick={handleButtonClick}
             handleInputEnter={handleInputEnter}
